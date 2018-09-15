@@ -100,11 +100,11 @@ add_filter('graphql_RootTodosQueryArgs_fields', function ($fields) {
  */
 add_filter(
     'graphql_map_input_fields_to_wp_query',
-    function ($query_args, $args) {
-        error_log("query_args: " . print_r($query_args['post_type'], true));
-        error_log("args: " . print_r($args, true));
-
-        // XXX: How to bail if not todo type!
+    function ($query_args, $args, $source, $all_args, $context, $info) {
+        // only manipulate todos input fields
+        if ($info->fieldName !== 'todos') {
+            return $query_args;
+        }
 
         // No idea why completed appears here too. Just remove it.
         if (isset($query_args['completed'])) {
@@ -127,5 +127,5 @@ add_filter(
         return $query_args;
     },
     10,
-    4
+    6
 );
