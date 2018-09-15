@@ -115,12 +115,22 @@ add_filter(
             return $query_args;
         }
 
-        $query_args['meta_query'] = [
-            [
-                'key' => 'completed',
-                'value' => $args['completed'] ? 'yes' : 'no',
-            ],
-        ];
+        if ($args['completed']) {
+            $query_args['meta_query'] = [
+                [
+                    'key' => 'completed',
+                    'value' => 'yes',
+                ],
+            ];
+        } else {
+            $query_args['meta_query'] = [
+                [
+                    'key' => 'completed',
+                    'compare' => 'NOT EXISTS',
+                    'value' => 'yes',
+                ],
+            ];
+        }
 
         unset($args['completed']);
 
