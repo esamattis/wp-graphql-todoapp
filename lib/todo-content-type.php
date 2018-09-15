@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/todo-completed-field.php';
-
 add_action('init', function () {
     $error = register_post_type('todo', [
         'labels' => [
