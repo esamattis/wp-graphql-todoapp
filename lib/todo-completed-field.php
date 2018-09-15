@@ -10,10 +10,6 @@ add_filter('graphql_todo_fields', function ($fields) {
         'resolve' => function (\WP_Post $post) {
             $value = get_post_meta($post->ID, 'completed', true);
 
-            if (!$value) {
-                return false;
-            }
-
             if ($value === 'yes') {
                 return true;
             }
