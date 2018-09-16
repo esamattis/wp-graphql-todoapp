@@ -27,10 +27,6 @@ export interface GQL_Edges {
     edges: (GQL_Edge | null)[] | null;
 }
 
-interface GQL_Data {
-    [key: string]: GQL_Edges | null;
-}
-
 type NotNull<T> = T extends null | undefined ? never : T;
 type ArrayValue<T> = T extends (infer V)[] ? NotNull<V> : never;
 type NodeProp<T> = T extends {node: infer V} ? NotNull<V> : never;
@@ -42,26 +38,22 @@ export type EdgeNode<T, K extends keyof T> = NodeProp<
     ArrayValue<EdgesPropValue<PickByKey<T, K>>>
 >;
 
-// export function getEdgeNodes(data: undefined, key: string): [];
-export function getEdgeNodes<T, K extends keyof T>(
-    data: T,
-    key: K,
-): EdgeNode<T, K>[] {
+export function getEdgeNodes<T, K extends keyof T>(data: T, key: K) {
     if (!data) {
         return [];
     }
 
-    const foo: GQL_Edges = data[key] as any;
+    const edges: GQL_Edges | null = data[key] as any;
 
-    if (!foo) {
+    if (!edges) {
         return [];
     }
 
-    if (!foo.edges) {
+    if (!edges.edges) {
         return [];
     }
 
-    const out = foo.edges.map(edge => edge && edge.node).filter(notEmpty);
+    const out = edges.edges.map(edge => edge && edge.node).filter(notEmpty);
 
     return out as EdgeNode<T, K>[];
 }
