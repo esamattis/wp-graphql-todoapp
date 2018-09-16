@@ -1,8 +1,6 @@
 <?php
 
-http_response_code(200  );
-
-?>
+http_response_code(200); ?>
 <!doctype html>
 <html>
 
