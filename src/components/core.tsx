@@ -34,6 +34,7 @@ export const Title = styled(View)<{level: "1" | "2" | "3"}>(
 
 export const PlainInput = styled(View.withComponent("input"))({
     borderStyle: "solid",
+    outline: "none",
 });
 
 export const PlainButton = styled(View.withComponent("button"))({
@@ -42,6 +43,7 @@ export const PlainButton = styled(View.withComponent("button"))({
     cursor: "pointer",
     alignItems: "center",
     justifyContent: "center",
+    outline: "none",
 });
 
 export const RedButton = styled(PlainButton)({

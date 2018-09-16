@@ -55,7 +55,6 @@ const AddInput = styled(PlainInput)({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-    outline: "none",
 });
 
 const InputRow = styled(Row)({
