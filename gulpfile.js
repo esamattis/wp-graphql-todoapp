@@ -1,11 +1,14 @@
 const {task, parallel} = require("gulp");
 const {sh} = require("gulp-sh");
 
-const backendFilesGlob = ["*.php", "*.html", "lib"];
+const backendFilesGlob = ["*.php", "*.html", "lib", "bootstrap.js"];
 
 function wrapQuotes(globs) {
     return globs.map(s => `"${s}"`);
 }
+
+task("js-server", sh`webpack-dev-server --mode development `);
+
 task(
     "sync-backend-dev",
     sh`
