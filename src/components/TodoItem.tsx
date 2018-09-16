@@ -21,11 +21,14 @@ const DelebuttonPosition = styled(View)({
 
 export const TodoItem = (props: {
     id: string;
+    wpId: number;
     title: string;
     completed: boolean;
 }) => (
     <TodoItemContainer>
-        <Title level="3">{props.title}</Title>
+        <Title level="3">
+            {props.title} ({props.wpId})
+        </Title>
         <View style={{height: 25}} />
         <CompleteButton
             id={props.id}

@@ -7,9 +7,9 @@
 
 export interface DeleteTodo_deleteTodo_todo {
   /**
-   * Is TODO completed
+   * The globally unique ID for the object
    */
-  completed: boolean | null;
+  id: string;
 }
 
 export interface DeleteTodo_deleteTodo {

@@ -4,7 +4,7 @@ export const DELETE_TODO = gql`
     mutation DeleteTodo($id: ID!) {
         deleteTodo(input: {id: $id, clientMutationId: "wat"}) {
             todo {
-                completed
+                id
             }
         }
     }
@@ -16,6 +16,7 @@ export const TODO_LIST = gql`
             edges {
                 node {
                     id
+                    wpId: todoId
                     title
                     completed
                 }
@@ -52,6 +53,7 @@ export const ADD_TODO = gql`
         ) {
             clientMutationId
             todo {
+                id
                 title
                 completed
             }

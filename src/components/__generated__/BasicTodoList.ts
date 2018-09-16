@@ -11,6 +11,10 @@ export interface BasicTodoList_todos_edges_node {
    */
   id: string;
   /**
+   * The id field matches the WP_Post-&gt;ID field.
+   */
+  wpId: number;
+  /**
    * The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made.
    */
   title: string | null;

@@ -1,5 +1,6 @@
 import React from "react";
 import produce from "immer";
+import uniqBy from "lodash/uniqBy";
 import {Query} from "react-apollo";
 import styled from "react-emotion";
 import FlipMove from "react-flip-move";
@@ -38,6 +39,7 @@ const TodoTracks = () => (
             const todos = getEdgeNodes(res.data, "todos");
 
             const cursor = res.data!.todos!.pageInfo.endCursor!;
+            const hasMore = res.data!.todos!.pageInfo.hasNextPage!;
 
             return (
                 <View>
@@ -52,24 +54,26 @@ const TodoTracks = () => (
                         />
                     </Row>
                     <View>
-                        <RedButton
-                            onClick={() => {
-                                res.fetchMore({
-                                    variables: {after: cursor},
-                                    updateQuery: (prev, next) =>
-                                        produce(prev, draftPrev => {
-                                            draftPrev.todos!.edges = [
-                                                ...draftPrev!.todos!.edges!.slice(),
-                                                ...next.fetchMoreResult!.todos!.edges!.slice(),
-                                            ];
+                        {hasMore && (
+                            <RedButton
+                                onClick={() => {
+                                    res.fetchMore({
+                                        variables: {after: cursor},
+                                        updateQuery: (prev, next) =>
+                                            produce(prev, draftPrev => {
+                                                draftPrev.todos!.edges = [
+                                                    ...draftPrev!.todos!.edges!.slice(),
+                                                    ...next.fetchMoreResult!.todos!.edges!.slice(),
+                                                ];
 
-                                            return draftPrev;
-                                        }),
-                                });
-                            }}
-                        >
-                            More
-                        </RedButton>
+                                                return draftPrev;
+                                            }),
+                                    });
+                                }}
+                            >
+                                More
+                            </RedButton>
+                        )}
                     </View>
                 </View>
             );
@@ -82,9 +86,10 @@ const TodoList = (props: {title: string; todos: TodoNode[]}) => (
         <BlackTitle level="2">{props.title}</BlackTitle>
         <FlipMove>
             {props.todos.map(todo => (
-                <div key={todo.id}>
+                <div key={todo.wpId}>
                     <TodoItem
                         id={todo.id}
+                        wpId={todo.wpId}
                         title={todo.title || ""}
                         completed={todo.completed || false}
                     />
