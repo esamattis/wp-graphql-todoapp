@@ -6,10 +6,19 @@ import FlipMove from "react-flip-move";
 import {getEdgeNodes} from "../utils";
 
 import {BasicTodoList} from "./__generated__/BasicTodoList";
-import {View, Title, Colors} from "./core";
+import {View, Title, Colors, Row} from "./core";
 import {TODO_LIST} from "./queries";
 import {AddTodoInput} from "./AddTodoInput";
 import {TodoItem} from "./TodoItem";
+
+const BlackTitle = styled(Title)({
+    color: Colors.black,
+});
+
+const TodoColumn = styled(View)({
+    color: Colors.black,
+    alignItems: "center",
+});
 
 const TodoList = () => (
     <Query<BasicTodoList> query={TODO_LIST}>
@@ -21,9 +30,9 @@ const TodoList = () => (
             const progress = getEdgeNodes(res.data, "progress");
 
             return (
-                <div style={{display: "flex", margin: 50}}>
-                    <div>
-                        <Title level="2">Tekemättömät</Title>
+                <>
+                    <TodoColumn>
+                        <BlackTitle level="2">Todo</BlackTitle>
                         <FlipMove>
                             {progress.map(todo => (
                                 <div key={todo.id}>
@@ -35,9 +44,9 @@ const TodoList = () => (
                                 </div>
                             ))}
                         </FlipMove>
-                    </div>
-                    <div>
-                        <Title level="2">Valmiit</Title>
+                    </TodoColumn>
+                    <TodoColumn>
+                        <BlackTitle level="2">Done</BlackTitle>
                         <FlipMove>
                             {completed.map(todo => (
                                 <div key={todo.id}>
@@ -49,23 +58,28 @@ const TodoList = () => (
                                 </div>
                             ))}
                         </FlipMove>
-                    </div>
-                </div>
+                    </TodoColumn>
+                </>
             );
         }}
     </Query>
 );
 
 const MainContainer = styled(View)({
+    paddingTop: 20,
     backgroundColor: Colors.white,
+    alignItems: "center",
 });
 
 class TodoApp extends React.Component {
     render() {
         return (
             <MainContainer>
-                <Title level="1">TODO App</Title>
-                <TodoList />
+                <BlackTitle level="1">WP GraphQL Todo App</BlackTitle>
+                <View style={{height: 50}} />
+                <Row>
+                    <TodoList />
+                </Row>
                 <AddTodoInput />
             </MainContainer>
         );

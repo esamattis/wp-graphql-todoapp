@@ -35,9 +35,7 @@ export const CompleteButton = (props: {
                         }
                     }}
                 >
-                    {props.action === "complete"
-                        ? "Merkitse tehdyksi"
-                        : "Palauta"}
+                    {props.action === "complete" ? "Done" : "Undone"}
                 </RedButton>
             </div>
         )}

@@ -19,7 +19,7 @@ export const TodoItem = (props: {
     completed: boolean;
 }) => (
     <TodoItemContainer>
-        <Title level="2">{props.title}</Title>
+        <Title level="3">{props.title}</Title>
         <View style={{height: 25}} />
         <CompleteButton
             id={props.id}
