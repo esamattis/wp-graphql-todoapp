@@ -9,13 +9,15 @@ function wrapQuotes(globs) {
 
 task("js-server", sh`webpack-dev-server --mode development `);
 
-task("generate-graphql-ts", sh`apollo codegen:generate --target typescript`);
-
+// Workaround https://github.com/apollographql/apollo-cli/issues/577
 task(
-    "clear-generated-ts",
+    "generate-graphql-ts",
     sh`
-    find src/ -type d -name __generated__ | xargs rm -rf
-    rm -rf ./__generated__
+find src/ -type d -name __generated__ | xargs rm -rf
+rm -rf ./__generated__
+mv node_modules/apollo/node_modules/graphql tmp
+apollo codegen:generate --target typescript
+mv tmp node_modules/apollo/node_modules/graphql
 `,
 );
 
