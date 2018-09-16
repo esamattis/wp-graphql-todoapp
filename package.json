@@ -1,27 +1,44 @@
 {
-  "name": "wp-graphql-todoapp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "@prettier/plugin-php": "^0.6.0",
-    "chokidar-cli": "^1.2.1",
-    "gulp": "^4.0.0",
-    "gulp-sh": "^0.2.2",
-    "prettier": "^1.14.2"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/epeli/wp-graphql-todoapp.git"
-  },
-  "author": "Esa-Matti Suuronen",
-  "license": "GPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/epeli/wp-graphql-todoapp/issues"
-  },
-  "homepage": "https://github.com/epeli/wp-graphql-todoapp#readme"
+    "name": "wp-graphql-todoapp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "@babel/core": "^7.0.0",
+        "@babel/plugin-proposal-class-properties": "^7.0.0",
+        "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+        "@babel/preset-env": "^7.0.0",
+        "@babel/preset-react": "^7.0.0",
+        "@babel/preset-typescript": "^7.0.0",
+        "@prettier/plugin-php": "^0.6.0",
+        "@types/react": "^16.4.14",
+        "@types/react-dom": "^16.0.7",
+        "babel-loader": "^8.0.2",
+        "chokidar-cli": "^1.2.1",
+        "css-loader": "^1.0.0",
+        "gulp": "^4.0.0",
+        "gulp-sh": "^0.2.2",
+        "prettier": "^1.14.2",
+        "react": "^16.5.1",
+        "react-dom": "^16.5.1",
+        "style-loader": "^0.23.0",
+        "typescript": "~3.1.0rc",
+        "webpack": "^4.19.0",
+        "webpack-cli": "^3.1.0",
+        "webpack-dev-server": "^3.1.8"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/epeli/wp-graphql-todoapp.git"
+    },
+    "author": "Esa-Matti Suuronen",
+    "license": "GPL-3.0-or-later",
+    "bugs": {
+        "url": "https://github.com/epeli/wp-graphql-todoapp/issues"
+    },
+    "homepage": "https://github.com/epeli/wp-graphql-todoapp#readme"
 }
