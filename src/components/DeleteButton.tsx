@@ -28,6 +28,9 @@ export const DeleteButton = (props: {id: string}) => (
                             variables: {
                                 id: props.id,
                             },
+                            refetchQueries: [
+                                {query: TODO_LIST, variables: {after: ""}},
+                            ],
                         });
                         if (toggleRes) {
                             console.log(

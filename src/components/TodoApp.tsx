@@ -54,6 +54,7 @@ const TodoTracks = () => (
                         />
                     </Row>
                     <View>
+                        <View style={{height: 25}} />
                         {hasMore && (
                             <RedButton
                                 onClick={() => {
@@ -61,10 +62,17 @@ const TodoTracks = () => (
                                         variables: {after: cursor},
                                         updateQuery: (prev, next) =>
                                             produce(prev, draftPrev => {
+                                                if (!next.fetchMoreResult) {
+                                                    return prev;
+                                                }
+
                                                 draftPrev.todos!.edges = [
-                                                    ...draftPrev!.todos!.edges!.slice(),
-                                                    ...next.fetchMoreResult!.todos!.edges!.slice(),
+                                                    ...draftPrev!.todos!.edges!,
+                                                    ...next.fetchMoreResult
+                                                        .todos!.edges!,
                                                 ];
+
+                                                draftPrev.todos!.pageInfo = next.fetchMoreResult!.todos!.pageInfo;
 
                                                 return draftPrev;
                                             }),
@@ -74,6 +82,7 @@ const TodoTracks = () => (
                                 More
                             </RedButton>
                         )}
+                        <View style={{height: 50}} />
                     </View>
                 </View>
             );
