@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "lib": ["es2018", "dom"],
+        "strict": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "noUnusedLocals": true,
+        "jsx": "react"
+    }
+}
