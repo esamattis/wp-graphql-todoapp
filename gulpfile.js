@@ -11,6 +11,6 @@ task(
     sh`
     chokidar ${wrapQuotes(
         backendFilesGlob,
-    )} -c 'rsync -Pah  ${backendFilesGlob} git@graphql.valudata-fi.test:sites/graphql/wp-content/themes/wp-graphql-todoapp/'
+    )} -c 'rsync -Pah  ${backendFilesGlob} git@graphql.valudata-fi.test:sites/graphql/wp-content/themes/wp-graphql-todoapp/ && echo ok'
 `,
 );
