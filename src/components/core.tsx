@@ -8,6 +8,7 @@ export const Colors = {
 
 export const View = styled.div({
     display: "flex",
+    position: "relative",
     flexDirection: "column",
     boxSizing: "border-box",
     fontFamily: "'Signika', sans-serif",

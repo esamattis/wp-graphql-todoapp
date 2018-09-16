@@ -13,6 +13,12 @@ const TodoItemContainer = styled(View)({
     width: 300,
 });
 
+const DelebuttonPosition = styled(View)({
+    position: "absolute",
+    top: 10,
+    right: 10,
+});
+
 export const TodoItem = (props: {
     id: string;
     title: string;
@@ -25,6 +31,10 @@ export const TodoItem = (props: {
             id={props.id}
             action={props.completed ? "revert" : "complete"}
         />
-        {props.completed && <DeleteButton id={props.id} />}
+        {props.completed && (
+            <DelebuttonPosition>
+                <DeleteButton id={props.id} />
+            </DelebuttonPosition>
+        )}
     </TodoItemContainer>
 );
