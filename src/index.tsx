@@ -1,14 +1,13 @@
-import ReactDOM from "react-dom";
-import React from "react";
-import TodoApp from "./components/TodoApp";
-
 import ApolloClient from "apollo-boost";
+import React from "react";
+import {ApolloProvider} from "react-apollo";
+import ReactDOM from "react-dom";
+
+import TodoApp from "./components/TodoApp";
 
 const client = new ApolloClient({
     // uri: "https://w5xlvm3vzz.lp.gql.zone/graphql",
 });
-
-import {ApolloProvider} from "react-apollo";
 
 const Root = () => (
     <ApolloProvider client={client}>

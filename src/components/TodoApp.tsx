@@ -1,17 +1,18 @@
-import React from "react";
-
-import FlipMove from "react-flip-move";
-import styled from "react-emotion";
-import {Query, Mutation} from "react-apollo";
 import gql from "graphql-tag";
+import React from "react";
+import {Mutation, Query} from "react-apollo";
+import styled from "react-emotion";
+import FlipMove from "react-flip-move";
+
 import {getEdgeNodes} from "../utils";
-import {BasicTodoList} from "./__generated__/BasicTodoList";
+
 import {AddTodo, AddTodoVariables} from "./__generated__/AddTodo";
+import {BasicTodoList} from "./__generated__/BasicTodoList";
+import {DeleteTodo, DeleteTodoVariables} from "./__generated__/DeleteTodo";
 import {
     SetTodoCompletion,
     SetTodoCompletionVariables,
 } from "./__generated__/SetTodoCompletion";
-import {DeleteTodo, DeleteTodoVariables} from "./__generated__/DeleteTodo";
 import {View} from "./core";
 
 const TODO_LIST = gql`
