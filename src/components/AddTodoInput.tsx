@@ -1,50 +1,10 @@
-import gql from "graphql-tag";
 import React from "react";
 import {Mutation} from "react-apollo";
 import styled from "react-emotion";
 
 import {AddTodo, AddTodoVariables} from "./__generated__/AddTodo";
-import {Colors, PlainButton, PlainInput, RedButton, Row, View} from "./core";
-import {TODO_LIST} from "./queries";
-
-const AddTodoButton = (props: {value: string; onSave: () => void}) => (
-    <Mutation<AddTodo, AddTodoVariables>
-        mutation={gql`
-            mutation AddTodo($title: String!) {
-                createTodo(
-                    input: {
-                        title: $title
-                        clientMutationId: "lala"
-                        status: PUBLISH
-                    }
-                ) {
-                    clientMutationId
-                    todo {
-                        title
-                        completed
-                    }
-                }
-            }
-        `}
-    >
-        {add => (
-            <AddButton
-                onClick={async () => {
-                    const res = await add({
-                        variables: {title: props.value},
-                        refetchQueries: [{query: TODO_LIST}],
-                    });
-                    if (res) {
-                        console.log("mutation results", res);
-                        props.onSave();
-                    }
-                }}
-            >
-                Add
-            </AddButton>
-        )}
-    </Mutation>
-);
+import {Colors, PlainInput, RedButton, Row} from "./core";
+import {ADD_TODO, TODO_LIST} from "./queries";
 
 const AddInput = styled(PlainInput)({
     flex: 1,
@@ -81,17 +41,39 @@ export class AddTodoInput extends React.Component<
 
     render() {
         return (
-            <InputRow>
-                <AddInput
-                    value={this.state.value}
-                    autoFocus
-                    placeholder="What to do?"
-                    onChange={e => {
-                        this.setState({value: e.target.value});
-                    }}
-                />
-                <AddTodoButton value={this.state.value} onSave={this.clear} />
-            </InputRow>
+            <Mutation<AddTodo, AddTodoVariables> mutation={ADD_TODO}>
+                {add => {
+                    const addTodo = async () => {
+                        if (this.state.value.trim() !== "") {
+                            return;
+                        }
+                        await add({
+                            variables: {title: this.state.value},
+                            refetchQueries: [{query: TODO_LIST}],
+                        });
+                        this.clear();
+                    };
+
+                    return (
+                        <InputRow>
+                            <AddInput
+                                value={this.state.value}
+                                autoFocus
+                                placeholder="What to do?"
+                                onChange={e => {
+                                    this.setState({value: e.target.value});
+                                }}
+                                onKeyDown={e => {
+                                    if (e.key === "Enter") {
+                                        addTodo();
+                                    }
+                                }}
+                            />
+                            <AddButton onClick={addTodo}>Add</AddButton>
+                        </InputRow>
+                    );
+                }}
+            </Mutation>
         );
     }
 }

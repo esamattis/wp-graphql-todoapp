@@ -44,3 +44,21 @@ export const SET_COMPLETED = gql`
         }
     }
 `;
+export const ADD_TODO = gql`
+    mutation AddTodo($title: String!) {
+        createTodo(
+            input: {
+                title: $title
+                clientMutationId: "lala"
+                completed: false
+                status: PUBLISH
+            }
+        ) {
+            clientMutationId
+            todo {
+                title
+                completed
+            }
+        }
+    }
+`;
