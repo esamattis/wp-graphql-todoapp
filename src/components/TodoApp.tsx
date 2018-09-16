@@ -31,29 +31,36 @@ type TodoNode = EdgeNodeType<BasicTodoList, "todos">;
 const TodoTracks = () => (
     <Query<BasicTodoList, BasicTodoListVariables>
         query={TODO_LIST}
-        variables={{after: ""}}
+        variables={{cursorTodos: "", cursorDones: ""}}
     >
         {res => {
             if (res.loading) return <p>Loading...</p>;
             if (res.error || !res.data) return <p>Error :(</p>;
 
-            const todos = getEdgeNodes(res.data, "todos").filter(
-                todo => todo.status === "publish",
-            );
+            const todos = getEdgeNodes(res.data, "todos");
+            const dones = getEdgeNodes(res.data, "dones");
 
-            const cursor = res.data!.todos!.pageInfo.endCursor!;
-            const hasMore = res.data!.todos!.pageInfo.hasNextPage!;
+            const allTodos = todos
+                .concat(dones)
+                .filter(todo => todo.status === "publish");
+
+            const cursorTodos = res.data!.todos!.pageInfo.endCursor!;
+            const cursorDones = res.data!.dones!.pageInfo.endCursor!;
+
+            const hasMore =
+                res.data!.todos!.pageInfo.hasNextPage! ||
+                res.data!.dones!.pageInfo.hasNextPage!;
 
             return (
                 <View>
                     <Row>
                         <TodoList
                             title="Todo"
-                            todos={todos.filter(todo => !todo.completed)}
+                            todos={allTodos.filter(todo => !todo.completed)}
                         />
                         <TodoList
                             title="Done"
-                            todos={todos.filter(todo => todo.completed)}
+                            todos={allTodos.filter(todo => todo.completed)}
                         />
                     </Row>
                     <View>
@@ -62,7 +69,7 @@ const TodoTracks = () => (
                             <RedButton
                                 onClick={() => {
                                     res.fetchMore({
-                                        variables: {after: cursor},
+                                        variables: {cursorTodos, cursorDones},
                                         updateQuery: (prev, next) =>
                                             produce(prev, draftPrev => {
                                                 if (!next.fetchMoreResult) {
@@ -75,7 +82,28 @@ const TodoTracks = () => (
                                                         .todos!.edges!,
                                                 ];
 
+                                                draftPrev.dones!.edges = [
+                                                    ...draftPrev!.dones!.edges!,
+                                                    ...next.fetchMoreResult
+                                                        .dones!.edges!,
+                                                ];
+
                                                 draftPrev.todos!.pageInfo = next.fetchMoreResult!.todos!.pageInfo;
+                                                draftPrev.dones!.pageInfo = next.fetchMoreResult!.dones!.pageInfo;
+
+                                                if (
+                                                    !draftPrev.todos!.pageInfo
+                                                        .endCursor
+                                                ) {
+                                                    draftPrev.todos!.pageInfo.endCursor = prev.todos!.pageInfo.endCursor;
+                                                }
+
+                                                if (
+                                                    !draftPrev.dones!.pageInfo
+                                                        .endCursor
+                                                ) {
+                                                    draftPrev.dones!.pageInfo.endCursor = prev.dones!.pageInfo.endCursor;
+                                                }
 
                                                 return draftPrev;
                                             }),

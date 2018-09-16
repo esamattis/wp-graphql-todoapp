@@ -12,8 +12,23 @@ export const DELETE_TODO = gql`
 `;
 
 export const TODO_LIST = gql`
-    query BasicTodoList($after: String!) {
-        todos(first: 5, after: $after) {
+    query BasicTodoList($cursorTodos: String!, $cursorDones: String!) {
+        todos(first: 3, after: $cursorTodos, where: {completed: false}) {
+            edges {
+                node {
+                    id
+                    wpId: todoId
+                    title
+                    completed
+                    status
+                }
+            }
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+        }
+        dones: todos(first: 3, after: $cursorDones, where: {completed: true}) {
             edges {
                 node {
                     id
