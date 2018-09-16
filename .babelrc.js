@@ -35,10 +35,21 @@ function addModernBrowserSupport(config) {
     config.plugins.push("@babel/plugin-transform-async-to-generator");
 }
 
+let EMOTION_CONFIG = {};
+
+if (process.env.NODE_ENV !== "production") {
+    EMOTION_CONFIG = {
+        sourceMap: true,
+        autoLabel: true,
+        labelFormat: "[filename]--[local]",
+    };
+}
+
 let CONFIG = {
     presets: ["@babel/preset-typescript", "@babel/preset-react"],
     plugins: [
         "@babel/plugin-proposal-class-properties",
+        ["emotion", EMOTION_CONFIG],
         // "@babel/plugin-syntax-dynamic-import",
     ],
 };
