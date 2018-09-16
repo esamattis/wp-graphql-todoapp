@@ -1,8 +1,8 @@
 {
     "name": "wp-graphql-todoapp",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
     "dependencies": {
         "@babel/core": "^7.0.0",
         "@babel/plugin-proposal-class-properties": "^7.0.0",
@@ -26,19 +26,5 @@
         "webpack": "^4.19.0",
         "webpack-cli": "^3.1.0",
         "webpack-dev-server": "^3.1.8"
-    },
-    "devDependencies": {},
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/epeli/wp-graphql-todoapp.git"
-    },
-    "author": "Esa-Matti Suuronen",
-    "license": "GPL-3.0-or-later",
-    "bugs": {
-        "url": "https://github.com/epeli/wp-graphql-todoapp/issues"
-    },
-    "homepage": "https://github.com/epeli/wp-graphql-todoapp#readme"
+    }
 }
