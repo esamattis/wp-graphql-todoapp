@@ -1,6 +1,10 @@
 <?php
 
-http_response_code(200); ?>
+
+$production_bundle = get_template_directory_uri() . '/dist/main.bundle.js';
+
+http_response_code(200);
+?>
 <!doctype html>
 <html>
 
@@ -15,7 +19,7 @@ http_response_code(200); ?>
     </noscript>
     <div id="root"></div>
     <script>
-        <?php readfile(__DIR__ . '/src/bootstrap.js'); ?>
+        <?php readfile(__DIR__ . '/bootstrap.js'); ?>
     </script>
 </body>
 
