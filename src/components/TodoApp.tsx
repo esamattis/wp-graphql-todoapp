@@ -51,6 +51,42 @@ const TodoTracks = () => (
                 res.data!.todos!.pageInfo.hasNextPage! ||
                 res.data!.dones!.pageInfo.hasNextPage!;
 
+            const fetchMore = () => {
+                res.fetchMore({
+                    variables: {cursorTodos, cursorDones},
+
+                    updateQuery: (prev, next) =>
+                        produce(prev, draftPrev => {
+                            if (!next.fetchMoreResult) {
+                                return prev;
+                            }
+
+                            draftPrev.todos!.edges = [
+                                ...draftPrev!.todos!.edges!,
+                                ...next.fetchMoreResult.todos!.edges!,
+                            ];
+
+                            draftPrev.dones!.edges = [
+                                ...draftPrev!.dones!.edges!,
+                                ...next.fetchMoreResult.dones!.edges!,
+                            ];
+
+                            draftPrev.todos!.pageInfo = next.fetchMoreResult!.todos!.pageInfo;
+                            draftPrev.dones!.pageInfo = next.fetchMoreResult!.dones!.pageInfo;
+
+                            if (!draftPrev.todos!.pageInfo.endCursor) {
+                                draftPrev.todos!.pageInfo.endCursor = prev.todos!.pageInfo.endCursor;
+                            }
+
+                            if (!draftPrev.dones!.pageInfo.endCursor) {
+                                draftPrev.dones!.pageInfo.endCursor = prev.dones!.pageInfo.endCursor;
+                            }
+
+                            return draftPrev;
+                        }),
+                });
+            };
+
             return (
                 <View>
                     <Row>
@@ -66,52 +102,7 @@ const TodoTracks = () => (
                     <View>
                         <View style={{height: 25}} />
                         {hasMore && (
-                            <RedButton
-                                onClick={() => {
-                                    res.fetchMore({
-                                        variables: {cursorTodos, cursorDones},
-                                        updateQuery: (prev, next) =>
-                                            produce(prev, draftPrev => {
-                                                if (!next.fetchMoreResult) {
-                                                    return prev;
-                                                }
-
-                                                draftPrev.todos!.edges = [
-                                                    ...draftPrev!.todos!.edges!,
-                                                    ...next.fetchMoreResult
-                                                        .todos!.edges!,
-                                                ];
-
-                                                draftPrev.dones!.edges = [
-                                                    ...draftPrev!.dones!.edges!,
-                                                    ...next.fetchMoreResult
-                                                        .dones!.edges!,
-                                                ];
-
-                                                draftPrev.todos!.pageInfo = next.fetchMoreResult!.todos!.pageInfo;
-                                                draftPrev.dones!.pageInfo = next.fetchMoreResult!.dones!.pageInfo;
-
-                                                if (
-                                                    !draftPrev.todos!.pageInfo
-                                                        .endCursor
-                                                ) {
-                                                    draftPrev.todos!.pageInfo.endCursor = prev.todos!.pageInfo.endCursor;
-                                                }
-
-                                                if (
-                                                    !draftPrev.dones!.pageInfo
-                                                        .endCursor
-                                                ) {
-                                                    draftPrev.dones!.pageInfo.endCursor = prev.dones!.pageInfo.endCursor;
-                                                }
-
-                                                return draftPrev;
-                                            }),
-                                    });
-                                }}
-                            >
-                                More
-                            </RedButton>
+                            <RedButton onClick={fetchMore}>More</RedButton>
                         )}
                         <View style={{height: 50}} />
                     </View>
