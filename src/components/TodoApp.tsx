@@ -1,5 +1,6 @@
 import React from "react";
 
+import FlipMove from "react-flip-move";
 import styled from "react-emotion";
 import {Query, Mutation} from "react-apollo";
 import gql from "graphql-tag";
@@ -146,25 +147,31 @@ const TodoList = () => (
                 <div style={{display: "flex", margin: 50}}>
                     <div>
                         <h1>Tekemättömät</h1>
-                        {progress.map(todo => (
-                            <TodoItem
-                                key={todo.id}
-                                id={todo.id}
-                                title={todo.title || ""}
-                                completed={todo.completed || false}
-                            />
-                        ))}
+                        <FlipMove>
+                            {progress.map(todo => (
+                                <div key={todo.id}>
+                                    <TodoItem
+                                        id={todo.id}
+                                        title={todo.title || ""}
+                                        completed={todo.completed || false}
+                                    />
+                                </div>
+                            ))}
+                        </FlipMove>
                     </div>
                     <div>
                         <h1>Valmiit</h1>
-                        {completed.map(todo => (
-                            <TodoItem
-                                key={todo.id}
-                                id={todo.id}
-                                title={todo.title || ""}
-                                completed={todo.completed || false}
-                            />
-                        ))}
+                        <FlipMove>
+                            {completed.map(todo => (
+                                <div key={todo.id}>
+                                    <TodoItem
+                                        id={todo.id}
+                                        title={todo.title || ""}
+                                        completed={todo.completed || false}
+                                    />
+                                </div>
+                            ))}
+                        </FlipMove>
                     </div>
                 </div>
             );
