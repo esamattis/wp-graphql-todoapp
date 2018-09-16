@@ -94,22 +94,13 @@ add_filter(
         }
 
         // Convernt completed boolean to meta_query
-        if ($args['completed']) {
-            $query_args['meta_query'] = [
-                [
-                    'key' => 'completed',
-                    'value' => 'yes',
-                ],
-            ];
-        } else {
-            $query_args['meta_query'] = [
-                [
-                    'key' => 'completed',
-                    'compare' => 'NOT EXISTS',
-                    'value' => 'yes',
-                ],
-            ];
-        }
+        $query_args['meta_query'] = [
+            [
+                'key' => 'completed',
+                'compare' => $args['completed'] ? '=' : '!=',
+                'value' => 'yes',
+            ],
+        ];
 
         // Finally remvoe the completed boolean from the query
         unset($args['completed']);
