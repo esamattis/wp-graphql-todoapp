@@ -5,9 +5,7 @@ import ReactDOM from "react-dom";
 
 import TodoApp from "./components/TodoApp";
 
-const client = new ApolloClient({
-    // uri: "https://w5xlvm3vzz.lp.gql.zone/graphql",
-});
+const client = new ApolloClient({});
 
 const Root = () => (
     <ApolloProvider client={client}>
