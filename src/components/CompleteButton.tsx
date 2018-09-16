@@ -5,7 +5,7 @@ import {
     SetTodoCompletion,
     SetTodoCompletionVariables,
 } from "./__generated__/SetTodoCompletion";
-import {PlainButton} from "./core";
+import {RedButton} from "./core";
 import {SET_COMPLETED, TODO_LIST} from "./queries";
 
 export const CompleteButton = (props: {
@@ -17,7 +17,7 @@ export const CompleteButton = (props: {
     >
         {(toggle, res) => (
             <div>
-                <PlainButton
+                <RedButton
                     onClick={async () => {
                         const res = await toggle({
                             variables: {
@@ -38,7 +38,7 @@ export const CompleteButton = (props: {
                     {props.action === "complete"
                         ? "Merkitse tehdyksi"
                         : "Palauta"}
-                </PlainButton>
+                </RedButton>
             </div>
         )}
     </Mutation>

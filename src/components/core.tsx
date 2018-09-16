@@ -24,8 +24,8 @@ export const Title = styled(View)<{level: "1" | "2"}>(
     },
     props => ({
         fontSize: {
-            1: 30,
-            2: 20,
+            1: 40,
+            2: 30,
         }[props.level],
     }),
 );
@@ -33,4 +33,11 @@ export const Title = styled(View)<{level: "1" | "2"}>(
 export const PlainButton = styled(View.withComponent("button"))({
     backgroundColor: "transparent",
     border: 0,
+    cursor: "pointer",
+});
+
+export const RedButton = styled(PlainButton)({
+    backgroundColor: Colors.red,
+    color: Colors.white,
+    padding: 10,
 });

@@ -8,8 +8,9 @@ import {DeleteButton} from "./DeleteButton";
 const TodoItemContainer = styled(View)({
     backgroundColor: Colors.black,
     margin: 10,
-    padding: 10,
+    padding: 20,
     borderRadius: 10,
+    width: 300,
 });
 
 export const TodoItem = (props: {
@@ -19,6 +20,7 @@ export const TodoItem = (props: {
 }) => (
     <TodoItemContainer>
         <Title level="2">{props.title}</Title>
+        <View style={{height: 25}} />
         <CompleteButton
             id={props.id}
             action={props.completed ? "revert" : "complete"}
