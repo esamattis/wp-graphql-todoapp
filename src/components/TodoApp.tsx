@@ -23,6 +23,7 @@ const BlackTitle = styled(Title)({
 const TodoColumn = styled(View)({
     color: Colors.black,
     alignItems: "center",
+    width: 350,
 });
 
 type TodoNode = EdgeNodeType<BasicTodoList, "todos">;
