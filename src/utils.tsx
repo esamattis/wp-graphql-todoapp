@@ -1,5 +1,3 @@
-import {BasicTodoList} from "./components/__generated__/BasicTodoList";
-
 /**
  * Type Guard function for filtering empty values out of arrays.
  *
