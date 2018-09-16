@@ -1,5 +1,6 @@
 import React from "react";
 
+import styled from "react-emotion";
 import {Query, Mutation} from "react-apollo";
 import gql from "graphql-tag";
 import {getEdgeNodes} from "../utils";
@@ -10,6 +11,7 @@ import {
     SetTodoCompletionVariables,
 } from "./__generated__/SetTodoCompletion";
 import {DeleteTodo, DeleteTodoVariables} from "./__generated__/DeleteTodo";
+import {View} from "./core";
 
 const TODO_LIST = gql`
     query BasicTodoList {
@@ -116,15 +118,19 @@ const CompleteButton = (props: {id: string; action: "complete" | "revert"}) => (
     </Mutation>
 );
 
+const TodoItemContainer = styled(View)({
+    backgroundColor: "yellow",
+});
+
 const TodoItem = (props: {id: string; title: string; completed: boolean}) => (
-    <div>
+    <TodoItemContainer>
         <h2>{props.title}</h2>
         <CompleteButton
             id={props.id}
             action={props.completed ? "revert" : "complete"}
         />
         {props.completed && <DeleteButton id={props.id} />}
-    </div>
+    </TodoItemContainer>
 );
 
 const TodoList = () => (
