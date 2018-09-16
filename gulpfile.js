@@ -9,6 +9,16 @@ function wrapQuotes(globs) {
 
 task("js-server", sh`webpack-dev-server --mode development `);
 
+task("generate-graphql-ts", sh`apollo codegen:generate --target typescript`);
+
+task(
+    "clear-generated-ts",
+    sh`
+    find src/ -type d -name __generated__ | xargs rm -rf
+    rm -rf ./__generated__
+`,
+);
+
 task(
     "sync-backend-dev",
     sh`
