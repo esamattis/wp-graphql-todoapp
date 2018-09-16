@@ -1,3 +1,5 @@
+import {BasicTodoList} from "./components/__generated__/BasicTodoList";
+
 /**
  * Type Guard function for filtering empty values out of arrays.
  *
@@ -18,33 +20,48 @@ export interface GQL_Edge {
     node: GQL_Node | null;
 }
 
-export interface GQL_Result {
+export interface GQL_Edges {
     /**
      * Information to aid in pagination
      */
     edges: (GQL_Edge | null)[] | null;
 }
 
-type NotNull<T> = T extends null ? never : T;
+interface GQL_Data {
+    [key: string]: GQL_Edges | null;
+}
+
+type NotNull<T> = T extends null | undefined ? never : T;
 type ArrayValue<T> = T extends (infer V)[] ? NotNull<V> : never;
-type NodeProp<T> = T extends {node: infer T} ? NotNull<T> : never;
+type NodeProp<T> = T extends {node: infer V} ? NotNull<V> : never;
+type EdgesPropValue<T> = T extends {edges: infer V} ? NotNull<V> : never;
 
-type EdgeNode<T extends GQL_Result | null> = T extends {edges: infer A}
-    ? NodeProp<ArrayValue<NotNull<A>>>
-    : never;
+type PickByKey<T, K extends keyof T> = NotNull<T[K]>;
 
-export function getEdgeNodes<T extends GQL_Result | null>(
-    res: T,
-): EdgeNode<T>[] {
-    if (!res) {
+export type EdgeNode<T, K extends keyof T> = NodeProp<
+    ArrayValue<EdgesPropValue<PickByKey<T, K>>>
+>;
+
+// export function getEdgeNodes(data: undefined, key: string): [];
+export function getEdgeNodes<T, K extends keyof T>(
+    data: T,
+    key: K,
+): EdgeNode<T, K>[] {
+    if (!data) {
         return [];
     }
 
-    if (!res.edges) {
+    const foo: GQL_Edges = data[key] as any;
+
+    if (!foo) {
         return [];
     }
 
-    const out = res.edges.map(edge => edge && edge.node).filter(notEmpty);
+    if (!foo.edges) {
+        return [];
+    }
 
-    return out as EdgeNode<T>;
+    const out = foo.edges.map(edge => edge && edge.node).filter(notEmpty);
+
+    return out as EdgeNode<T, K>[];
 }

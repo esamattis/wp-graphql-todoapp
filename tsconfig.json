@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "lib": ["es2018", "dom"],
+        "lib": ["es2018", "dom", "esnext.asynciterable"],
         "strict": true,
         "noEmit": true,
         "esModuleInterop": true,

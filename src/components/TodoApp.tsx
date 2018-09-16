@@ -25,9 +25,13 @@ const TodoList = () => (
             if (res.loading) return <p>Loading...</p>;
             if (res.error) return <p>Error :(</p>;
 
-            const foo = res.data!.todos;
+            const data = res.data!;
+            const lal: EdgeNode<typeof data, "todos"> = null as any;
+            lal.id;
 
-            const todos = getEdgeNodes(foo);
+            // const foo = res.data!.todos;
+
+            const todos = getEdgeNodes(res.data!, "todos");
 
             return (
                 <div>
