@@ -8,12 +8,13 @@ import {Colors, PlainButton, View} from "./core";
 import {DELETE_TODO, TODO_LIST} from "./queries";
 
 const DeleteIcon = styled(View.withComponent(FaTrash))({
-    height: 30,
-    width: 30,
+    height: 20,
+    width: 20,
     color: Colors.red,
     transition: "all .2s ease-in-out",
     ":hover": {
-        transform: "scale(1.1)",
+        transform: "scale(1.2) rotate(20deg)",
+        color: Colors.white,
     },
 });
 
@@ -23,16 +24,16 @@ export const DeleteButton = (props: {id: string}) => (
             <div>
                 <PlainButton
                     onClick={async () => {
-                        const res = await toggle({
+                        const toggleRes = await toggle({
                             variables: {
                                 id: props.id,
                             },
                             refetchQueries: [{query: TODO_LIST}],
                         });
-                        if (res) {
+                        if (toggleRes) {
                             console.log(
                                 "completion mutation results",
-                                res.data,
+                                toggleRes.data,
                             );
                         }
                     }}

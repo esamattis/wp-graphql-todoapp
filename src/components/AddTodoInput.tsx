@@ -1,13 +1,13 @@
 import gql from "graphql-tag";
 import React from "react";
 import {Mutation} from "react-apollo";
-
-import {AddTodo, AddTodoVariables} from "./__generated__/AddTodo";
-import {PlainButton, View, PlainInput, Row, RedButton, Colors} from "./core";
-import {TODO_LIST} from "./queries";
 import styled from "react-emotion";
 
-const AddTodoButton = () => (
+import {AddTodo, AddTodoVariables} from "./__generated__/AddTodo";
+import {Colors, PlainButton, PlainInput, RedButton, Row, View} from "./core";
+import {TODO_LIST} from "./queries";
+
+const AddTodoButton = (props: {value: string; onSave: () => void}) => (
     <Mutation<AddTodo, AddTodoVariables>
         mutation={gql`
             mutation AddTodo($title: String!) {
@@ -31,14 +31,12 @@ const AddTodoButton = () => (
             <AddButton
                 onClick={async () => {
                     const res = await add({
-                        variables: {title: "JS! 2"},
+                        variables: {title: props.value},
                         refetchQueries: [{query: TODO_LIST}],
                     });
                     if (res) {
-                        console.log(
-                            "mutation results",
-                            res.data!.createTodo!.todo!.title,
-                        );
+                        console.log("mutation results", res);
+                        props.onSave();
                     }
                 }}
             >
@@ -48,11 +46,10 @@ const AddTodoButton = () => (
     </Mutation>
 );
 
-const initialInputState = {value: ""};
-
 const AddInput = styled(PlainInput)({
     flex: 1,
     borderWidth: 5,
+    borderRightWidth: 0,
     borderColor: Colors.red,
     width: 350,
     textAlign: "center",
@@ -71,11 +68,17 @@ const AddButton = styled(RedButton)({
     width: 100,
 });
 
+const initialInputState = {value: ""};
+
 export class AddTodoInput extends React.Component<
     {},
     typeof initialInputState
 > {
     state = initialInputState;
+
+    clear = () => {
+        this.setState({value: ""});
+    };
 
     render() {
         return (
@@ -88,7 +91,7 @@ export class AddTodoInput extends React.Component<
                         this.setState({value: e.target.value});
                     }}
                 />
-                <AddTodoButton />
+                <AddTodoButton value={this.state.value} onSave={this.clear} />
             </InputRow>
         );
     }

@@ -49,4 +49,13 @@ export const RedButton = styled(PlainButton)({
     color: Colors.white,
     padding: 10,
     minWidth: 100,
+    borderWidth: 5,
+    fontSize: 18,
+    borderColor: Colors.red,
+    transition: "all .2s ease-in-out",
+    borderStyle: "solid",
+    ":hover": {
+        color: Colors.red,
+        backgroundColor: Colors.white,
+    },
 });
