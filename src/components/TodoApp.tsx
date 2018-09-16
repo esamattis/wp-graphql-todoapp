@@ -77,10 +77,11 @@ class TodoApp extends React.Component {
             <MainContainer>
                 <BlackTitle level="1">WP GraphQL Todo App</BlackTitle>
                 <View style={{height: 50}} />
+                <AddTodoInput />
+                <View style={{height: 50}} />
                 <Row>
                     <TodoList />
                 </Row>
-                <AddTodoInput />
             </MainContainer>
         );
     }

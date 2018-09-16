@@ -32,11 +32,16 @@ export const Title = styled(View)<{level: "1" | "2" | "3"}>(
     }),
 );
 
+export const PlainInput = styled(View.withComponent("input"))({
+    borderStyle: "solid",
+});
+
 export const PlainButton = styled(View.withComponent("button"))({
     backgroundColor: "transparent",
     border: 0,
     cursor: "pointer",
     alignItems: "center",
+    justifyContent: "center",
 });
 
 export const RedButton = styled(PlainButton)({
