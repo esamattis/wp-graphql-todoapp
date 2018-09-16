@@ -50,7 +50,13 @@ export class AddTodoInput extends React.Component<
                         await add({
                             variables: {title: this.state.value},
                             refetchQueries: [
-                                {query: TODO_LIST, variables: {after: ""}},
+                                {
+                                    query: TODO_LIST,
+                                    variables: {
+                                        cursorTodos: "",
+                                        cursorDones: "",
+                                    },
+                                },
                             ],
                         });
                         this.clear();
