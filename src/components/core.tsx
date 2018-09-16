@@ -1,13 +1,36 @@
 import styled from "react-emotion";
 
-export const COLORS = {};
+export const Colors = {
+    red: "#ee383a",
+    black: "#201e1c",
+    white: "white",
+};
 
 export const View = styled.div({
     display: "flex",
     flexDirection: "column",
     boxSizing: "border-box",
+    fontFamily: "'Signika', sans-serif",
 });
 
 export const Row = styled(View)({
     flexDirection: "row",
+});
+
+export const Title = styled(View)<{level: "1" | "2"}>(
+    {
+        color: Colors.white,
+        fontWeight: "bold",
+    },
+    props => ({
+        fontSize: {
+            1: 30,
+            2: 20,
+        }[props.level],
+    }),
+);
+
+export const PlainButton = styled(View.withComponent("button"))({
+    backgroundColor: "transparent",
+    border: 0,
 });
