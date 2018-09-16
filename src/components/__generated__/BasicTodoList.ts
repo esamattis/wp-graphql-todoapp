@@ -5,7 +5,7 @@
 // GraphQL query operation: BasicTodoList
 // ====================================================
 
-export interface BasicTodoList_completed_edges_node {
+export interface BasicTodoList_todos_edges_node {
   /**
    * The globally unique ID for the object
    */
@@ -20,56 +20,42 @@ export interface BasicTodoList_completed_edges_node {
   completed: boolean | null;
 }
 
-export interface BasicTodoList_completed_edges {
+export interface BasicTodoList_todos_edges {
   /**
    * The item at the end of the edge
    */
-  node: BasicTodoList_completed_edges_node | null;
+  node: BasicTodoList_todos_edges_node | null;
 }
 
-export interface BasicTodoList_completed {
+export interface BasicTodoList_todos_pageInfo {
+  /**
+   * When paginating forwards, the cursor to continue.
+   */
+  endCursor: string | null;
+  /**
+   * When paginating forwards, are there more items?
+   */
+  hasNextPage: boolean;
+}
+
+export interface BasicTodoList_todos {
   /**
    * Information to aid in pagination
    */
-  edges: (BasicTodoList_completed_edges | null)[] | null;
-}
-
-export interface BasicTodoList_progress_edges_node {
+  edges: (BasicTodoList_todos_edges | null)[] | null;
   /**
-   * The globally unique ID for the object
+   * Information to aid in pagination.
    */
-  id: string;
-  /**
-   * The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made.
-   */
-  title: string | null;
-  /**
-   * Is TODO completed
-   */
-  completed: boolean | null;
-}
-
-export interface BasicTodoList_progress_edges {
-  /**
-   * The item at the end of the edge
-   */
-  node: BasicTodoList_progress_edges_node | null;
-}
-
-export interface BasicTodoList_progress {
-  /**
-   * Information to aid in pagination
-   */
-  edges: (BasicTodoList_progress_edges | null)[] | null;
+  pageInfo: BasicTodoList_todos_pageInfo;
 }
 
 export interface BasicTodoList {
   /**
    * A collection of todos objects
    */
-  completed: BasicTodoList_completed | null;
-  /**
-   * A collection of todos objects
-   */
-  progress: BasicTodoList_progress | null;
+  todos: BasicTodoList_todos | null;
+}
+
+export interface BasicTodoListVariables {
+  after: string;
 }

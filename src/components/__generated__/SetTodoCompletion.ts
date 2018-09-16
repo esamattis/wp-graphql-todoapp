@@ -7,6 +7,10 @@
 
 export interface SetTodoCompletion_updateTodo_todo {
   /**
+   * The globally unique ID for the object
+   */
+  id: string;
+  /**
    * Is TODO completed
    */
   completed: boolean | null;

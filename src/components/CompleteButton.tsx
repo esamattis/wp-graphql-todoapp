@@ -8,7 +8,7 @@ import {
     SetTodoCompletionVariables,
 } from "./__generated__/SetTodoCompletion";
 import {RedButton, Row} from "./core";
-import {SET_COMPLETED, TODO_LIST} from "./queries";
+import {SET_COMPLETED} from "./queries";
 
 const DoneIcon = () => (
     <IoMdArrowRoundForward size="30" style={{alignSelf: "flex-end"}} />
@@ -37,7 +37,6 @@ export const CompleteButton = (props: {
                             completed:
                                 props.action === "complete" ? true : false,
                         },
-                        refetchQueries: [{query: TODO_LIST}],
                     });
                     if (toggleRes) {
                         console.log(

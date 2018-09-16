@@ -32,7 +32,7 @@ type EdgesPropValue<T> = T extends {edges: infer V} ? NotNull<V> : never;
 
 type PickByKey<T, K extends keyof T> = NotNull<T[K]>;
 
-export type EdgeNode<T, K extends keyof T> = NodeProp<
+export type EdgeNodeType<T, K extends keyof T> = NodeProp<
     ArrayValue<EdgesPropValue<PickByKey<T, K>>>
 >;
 
@@ -53,5 +53,5 @@ export function getEdgeNodes<T, K extends keyof T>(data: T, key: K) {
 
     const out = edges.edges.map(edge => edge && edge.node).filter(notEmpty);
 
-    return out as EdgeNode<T, K>[];
+    return out as EdgeNodeType<T, K>[];
 }

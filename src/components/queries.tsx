@@ -11,8 +11,8 @@ export const DELETE_TODO = gql`
 `;
 
 export const TODO_LIST = gql`
-    query BasicTodoList {
-        completed: todos(where: {completed: true}) {
+    query BasicTodoList($after: String!) {
+        todos(first: 5, after: $after) {
             edges {
                 node {
                     id
@@ -20,14 +20,9 @@ export const TODO_LIST = gql`
                     completed
                 }
             }
-        }
-        progress: todos(where: {completed: false}) {
-            edges {
-                node {
-                    id
-                    title
-                    completed
-                }
+            pageInfo {
+                endCursor
+                hasNextPage
             }
         }
     }
@@ -39,6 +34,7 @@ export const SET_COMPLETED = gql`
             input: {id: $id, clientMutationId: "wat", completed: $completed}
         ) {
             todo {
+                id
                 completed
             }
         }
