@@ -9,6 +9,7 @@ import {
     SetTodoCompletion,
     SetTodoCompletionVariables,
 } from "./__generated__/SetTodoCompletion";
+import {DeleteTodo, DeleteTodoVariables} from "./__generated__/DeleteTodo";
 
 const TODO_LIST = gql`
     query BasicTodoList {
@@ -45,6 +46,43 @@ const SET_COMPLETED = gql`
     }
 `;
 
+const DELETE_TODO = gql`
+    mutation DeleteTodo($id: ID!) {
+        deleteTodo(input: {id: $id, clientMutationId: "wat"}) {
+            todo {
+                completed
+            }
+        }
+    }
+`;
+
+const DeleteButton = (props: {id: string}) => (
+    <Mutation<DeleteTodo, DeleteTodoVariables> mutation={DELETE_TODO}>
+        {(toggle, res) => (
+            <div>
+                <button
+                    onClick={async () => {
+                        const res = await toggle({
+                            variables: {
+                                id: props.id,
+                            },
+                            refetchQueries: [{query: TODO_LIST}],
+                        });
+                        if (res) {
+                            console.log(
+                                "completion mutation results",
+                                res.data,
+                            );
+                        }
+                    }}
+                >
+                    x
+                </button>
+            </div>
+        )}
+    </Mutation>
+);
+
 const CompleteButton = (props: {id: string; action: "complete" | "revert"}) => (
     <Mutation<SetTodoCompletion, SetTodoCompletionVariables>
         mutation={SET_COMPLETED}
@@ -70,8 +108,8 @@ const CompleteButton = (props: {id: string; action: "complete" | "revert"}) => (
                     }}
                 >
                     {props.action === "complete"
-                        ? "Palauta"
-                        : "Merkitse tehdyksi"}
+                        ? "Merkitse tehdyksi"
+                        : "Palauta"}
                 </button>
             </div>
         )}
@@ -85,6 +123,7 @@ const TodoItem = (props: {id: string; title: string; completed: boolean}) => (
             id={props.id}
             action={props.completed ? "revert" : "complete"}
         />
+        {props.completed && <DeleteButton id={props.id} />}
     </div>
 );
 
