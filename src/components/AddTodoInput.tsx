@@ -44,7 +44,7 @@ export class AddTodoInput extends React.Component<
             <Mutation<AddTodo, AddTodoVariables> mutation={ADD_TODO}>
                 {add => {
                     const addTodo = async () => {
-                        if (this.state.value.trim() !== "") {
+                        if (this.state.value.trim() == "") {
                             return;
                         }
                         await add({
