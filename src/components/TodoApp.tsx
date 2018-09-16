@@ -1,4 +1,5 @@
 import React from "react";
+import produce from "immer";
 import {Query} from "react-apollo";
 import styled from "react-emotion";
 import FlipMove from "react-flip-move";
@@ -9,7 +10,7 @@ import {
     BasicTodoList,
     BasicTodoListVariables,
 } from "./__generated__/BasicTodoList";
-import {View, Title, Colors, Row} from "./core";
+import {View, Title, Colors, Row, RedButton} from "./core";
 import {TODO_LIST} from "./queries";
 import {AddTodoInput} from "./AddTodoInput";
 import {TodoItem} from "./TodoItem";
@@ -33,21 +34,44 @@ const TodoTracks = () => (
         {res => {
             if (res.loading) return <p>Loading...</p>;
             if (res.error || !res.data) return <p>Error :(</p>;
-            res.fetchMore;
 
             const todos = getEdgeNodes(res.data, "todos");
 
+            const cursor = res.data!.todos!.pageInfo.endCursor!;
+
             return (
-                <>
-                    <TodoList
-                        title="Todo"
-                        todos={todos.filter(todo => !todo.completed)}
-                    />
-                    <TodoList
-                        title="Done"
-                        todos={todos.filter(todo => todo.completed)}
-                    />
-                </>
+                <View>
+                    <Row>
+                        <TodoList
+                            title="Todo"
+                            todos={todos.filter(todo => !todo.completed)}
+                        />
+                        <TodoList
+                            title="Done"
+                            todos={todos.filter(todo => todo.completed)}
+                        />
+                    </Row>
+                    <View>
+                        <RedButton
+                            onClick={() => {
+                                res.fetchMore({
+                                    variables: {after: cursor},
+                                    updateQuery: (prev, next) =>
+                                        produce(prev, draftPrev => {
+                                            draftPrev.todos!.edges = [
+                                                ...draftPrev!.todos!.edges!.slice(),
+                                                ...next.fetchMoreResult!.todos!.edges!.slice(),
+                                            ];
+
+                                            return draftPrev;
+                                        }),
+                                });
+                            }}
+                        >
+                            More
+                        </RedButton>
+                    </View>
+                </View>
             );
         }}
     </Query>
