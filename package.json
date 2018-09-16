@@ -12,7 +12,7 @@
         "@babel/preset-env": "^7.0.0",
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.0.0",
-        "@prettier/plugin-php": "^0.6.0",
+        "@prettier/plugin-php": "git+https://git@github.com/prettier/plugin-php.git",
         "@types/react": "^16.4.14",
         "@types/react-dom": "^16.0.7",
         "babel-loader": "^8.0.2",
@@ -24,7 +24,7 @@
         "react": "^16.5.1",
         "react-dom": "^16.5.1",
         "style-loader": "^0.23.0",
-        "typescript": "~3.1.0rc",
+        "typescript": "~3.1.0-rc",
         "webpack": "^4.19.0",
         "webpack-cli": "^3.1.0",
         "webpack-dev-server": "^3.1.8"
