@@ -36,7 +36,9 @@ const TodoTracks = () => (
             if (res.loading) return <p>Loading...</p>;
             if (res.error || !res.data) return <p>Error :(</p>;
 
-            const todos = getEdgeNodes(res.data, "todos");
+            const todos = getEdgeNodes(res.data, "todos").filter(
+                todo => todo.status === "publish",
+            );
 
             const cursor = res.data!.todos!.pageInfo.endCursor!;
             const hasMore = res.data!.todos!.pageInfo.hasNextPage!;

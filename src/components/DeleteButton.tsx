@@ -5,7 +5,7 @@ import {FaTrash} from "react-icons/fa";
 
 import {DeleteTodo, DeleteTodoVariables} from "./__generated__/DeleteTodo";
 import {Colors, PlainButton, View} from "./core";
-import {DELETE_TODO, TODO_LIST} from "./queries";
+import {DELETE_TODO} from "./queries";
 
 const DeleteIcon = styled(View.withComponent(FaTrash))({
     height: 20,
@@ -28,9 +28,6 @@ export const DeleteButton = (props: {id: string}) => (
                             variables: {
                                 id: props.id,
                             },
-                            refetchQueries: [
-                                {query: TODO_LIST, variables: {after: ""}},
-                            ],
                         });
                         if (toggleRes) {
                             console.log(

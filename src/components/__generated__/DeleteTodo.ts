@@ -10,6 +10,10 @@ export interface DeleteTodo_deleteTodo_todo {
    * The globally unique ID for the object
    */
   id: string;
+  /**
+   * The current status of the object
+   */
+  status: string | null;
 }
 
 export interface DeleteTodo_deleteTodo {

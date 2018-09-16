@@ -22,6 +22,10 @@ export interface BasicTodoList_todos_edges_node {
    * Is TODO completed
    */
   completed: boolean | null;
+  /**
+   * The current status of the object
+   */
+  status: string | null;
 }
 
 export interface BasicTodoList_todos_edges {

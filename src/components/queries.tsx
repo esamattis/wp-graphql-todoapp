@@ -5,6 +5,7 @@ export const DELETE_TODO = gql`
         deleteTodo(input: {id: $id, clientMutationId: "wat"}) {
             todo {
                 id
+                status
             }
         }
     }
@@ -19,6 +20,7 @@ export const TODO_LIST = gql`
                     wpId: todoId
                     title
                     completed
+                    status
                 }
             }
             pageInfo {
