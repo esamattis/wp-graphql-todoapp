@@ -1,18 +1,17 @@
-import produce from "immer";
 import React from "react";
 import {Query} from "react-apollo";
 import styled from "react-emotion";
 import FlipMove from "react-flip-move";
 
-import {EdgeNodeType, getEdgeNodes, getPageInfo, concatEdges} from "../utils";
+import {concatEdges, EdgeNodeType, getEdgeNodes, getPageInfo} from "../utils";
 
 import {
-    BasicTodoList,
-    BasicTodoListVariables,
-} from "./__generated__/BasicTodoList";
+    DualTodoList,
+    DualTodoListVariables,
+} from "./__generated__/DualTodoList";
 import {AddTodoInput} from "./AddTodoInput";
 import {Colors, RedButton, Row, Title, View} from "./core";
-import {TODO_LIST} from "./queries";
+import {DualTodoListQuery} from "./queries";
 import {TodoItem} from "./TodoItem";
 
 const BlackTitle = styled(Title)({
@@ -25,11 +24,11 @@ const TodoColumn = styled(View)({
     width: 350,
 });
 
-type TodoNode = EdgeNodeType<BasicTodoList, "todos">;
+type TodoNode = EdgeNodeType<DualTodoList, "todos">;
 
 const TodoTracks = () => (
-    <Query<BasicTodoList, BasicTodoListVariables>
-        query={TODO_LIST}
+    <Query<DualTodoList, DualTodoListVariables>
+        query={DualTodoListQuery}
         variables={{cursorTodos: "", cursorDones: ""}}
     >
         {res => {

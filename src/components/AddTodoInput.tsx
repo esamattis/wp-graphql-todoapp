@@ -4,7 +4,7 @@ import styled from "react-emotion";
 
 import {AddTodo, AddTodoVariables} from "./__generated__/AddTodo";
 import {Colors, PlainInput, RedButton, Row} from "./core";
-import {ADD_TODO, TODO_LIST} from "./queries";
+import {AddTodoMutation, DualTodoListQuery} from "./queries";
 
 const AddInput = styled(PlainInput)({
     flex: 1,
@@ -41,7 +41,7 @@ export class AddTodoInput extends React.Component<
 
     render() {
         return (
-            <Mutation<AddTodo, AddTodoVariables> mutation={ADD_TODO}>
+            <Mutation<AddTodo, AddTodoVariables> mutation={AddTodoMutation}>
                 {add => {
                     const addTodo = async () => {
                         if (this.state.value.trim() == "") {
@@ -51,7 +51,7 @@ export class AddTodoInput extends React.Component<
                             variables: {title: this.state.value},
                             refetchQueries: [
                                 {
-                                    query: TODO_LIST,
+                                    query: DualTodoListQuery,
                                     variables: {
                                         cursorTodos: "",
                                         cursorDones: "",

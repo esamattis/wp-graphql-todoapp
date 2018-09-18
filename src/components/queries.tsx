@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const DELETE_TODO = gql`
+export const DeleteTodoMutation = gql`
     mutation DeleteTodo($id: ID!) {
         deleteTodo(input: {id: $id, clientMutationId: "wat"}) {
             todo {
@@ -11,8 +11,8 @@ export const DELETE_TODO = gql`
     }
 `;
 
-export const TODO_LIST = gql`
-    query BasicTodoList($cursorTodos: String!, $cursorDones: String!) {
+export const DualTodoListQuery = gql`
+    query DualTodoList($cursorTodos: String!, $cursorDones: String!) {
         todos(first: 3, after: $cursorTodos, where: {completed: false}) {
             edges {
                 node {
@@ -46,7 +46,7 @@ export const TODO_LIST = gql`
     }
 `;
 
-export const SET_COMPLETED = gql`
+export const SetCompletedMutation = gql`
     mutation SetTodoCompletion($id: ID!, $completed: Boolean!) {
         updateTodo(
             input: {id: $id, clientMutationId: "wat", completed: $completed}
@@ -58,7 +58,7 @@ export const SET_COMPLETED = gql`
         }
     }
 `;
-export const ADD_TODO = gql`
+export const AddTodoMutation = gql`
     mutation AddTodo($title: String!) {
         createTodo(
             input: {

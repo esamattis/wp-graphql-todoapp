@@ -2,10 +2,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: BasicTodoList
+// GraphQL query operation: DualTodoList
 // ====================================================
 
-export interface BasicTodoList_todos_edges_node {
+export interface DualTodoList_todos_edges_node {
   /**
    * The globally unique ID for the object
    */
@@ -28,14 +28,14 @@ export interface BasicTodoList_todos_edges_node {
   status: string | null;
 }
 
-export interface BasicTodoList_todos_edges {
+export interface DualTodoList_todos_edges {
   /**
    * The item at the end of the edge
    */
-  node: BasicTodoList_todos_edges_node | null;
+  node: DualTodoList_todos_edges_node | null;
 }
 
-export interface BasicTodoList_todos_pageInfo {
+export interface DualTodoList_todos_pageInfo {
   /**
    * When paginating forwards, the cursor to continue.
    */
@@ -46,18 +46,18 @@ export interface BasicTodoList_todos_pageInfo {
   hasNextPage: boolean;
 }
 
-export interface BasicTodoList_todos {
+export interface DualTodoList_todos {
   /**
    * Information to aid in pagination
    */
-  edges: (BasicTodoList_todos_edges | null)[] | null;
+  edges: (DualTodoList_todos_edges | null)[] | null;
   /**
    * Information to aid in pagination.
    */
-  pageInfo: BasicTodoList_todos_pageInfo;
+  pageInfo: DualTodoList_todos_pageInfo;
 }
 
-export interface BasicTodoList_dones_edges_node {
+export interface DualTodoList_dones_edges_node {
   /**
    * The globally unique ID for the object
    */
@@ -80,14 +80,14 @@ export interface BasicTodoList_dones_edges_node {
   status: string | null;
 }
 
-export interface BasicTodoList_dones_edges {
+export interface DualTodoList_dones_edges {
   /**
    * The item at the end of the edge
    */
-  node: BasicTodoList_dones_edges_node | null;
+  node: DualTodoList_dones_edges_node | null;
 }
 
-export interface BasicTodoList_dones_pageInfo {
+export interface DualTodoList_dones_pageInfo {
   /**
    * When paginating forwards, the cursor to continue.
    */
@@ -98,29 +98,29 @@ export interface BasicTodoList_dones_pageInfo {
   hasNextPage: boolean;
 }
 
-export interface BasicTodoList_dones {
+export interface DualTodoList_dones {
   /**
    * Information to aid in pagination
    */
-  edges: (BasicTodoList_dones_edges | null)[] | null;
+  edges: (DualTodoList_dones_edges | null)[] | null;
   /**
    * Information to aid in pagination.
    */
-  pageInfo: BasicTodoList_dones_pageInfo;
+  pageInfo: DualTodoList_dones_pageInfo;
 }
 
-export interface BasicTodoList {
+export interface DualTodoList {
   /**
    * A collection of todos objects
    */
-  todos: BasicTodoList_todos | null;
+  todos: DualTodoList_todos | null;
   /**
    * A collection of todos objects
    */
-  dones: BasicTodoList_dones | null;
+  dones: DualTodoList_dones | null;
 }
 
-export interface BasicTodoListVariables {
+export interface DualTodoListVariables {
   cursorTodos: string;
   cursorDones: string;
 }

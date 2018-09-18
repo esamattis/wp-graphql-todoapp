@@ -5,7 +5,7 @@ import {FaTrash} from "react-icons/fa";
 
 import {DeleteTodo, DeleteTodoVariables} from "./__generated__/DeleteTodo";
 import {Colors, PlainButton, View} from "./core";
-import {DELETE_TODO} from "./queries";
+import {DeleteTodoMutation} from "./queries";
 
 const DeleteIcon = styled(View.withComponent(FaTrash))({
     height: 20,
@@ -19,7 +19,7 @@ const DeleteIcon = styled(View.withComponent(FaTrash))({
 });
 
 export const DeleteButton = (props: {id: string}) => (
-    <Mutation<DeleteTodo, DeleteTodoVariables> mutation={DELETE_TODO}>
+    <Mutation<DeleteTodo, DeleteTodoVariables> mutation={DeleteTodoMutation}>
         {(toggle, res) => (
             <div>
                 <PlainButton

@@ -7,8 +7,8 @@ import {
     SetTodoCompletion,
     SetTodoCompletionVariables,
 } from "./__generated__/SetTodoCompletion";
-import {RedButton, Row} from "./core";
-import {SET_COMPLETED} from "./queries";
+import {RedButton} from "./core";
+import {SetCompletedMutation} from "./queries";
 
 const DoneIcon = () => (
     <IoMdArrowRoundForward size="30" style={{alignSelf: "flex-end"}} />
@@ -26,9 +26,9 @@ export const CompleteButton = (props: {
     action: "complete" | "revert";
 }) => (
     <Mutation<SetTodoCompletion, SetTodoCompletionVariables>
-        mutation={SET_COMPLETED}
+        mutation={SetCompletedMutation}
     >
-        {(toggle, res) => (
+        {toggle => (
             <WrappingButton
                 onClick={async () => {
                     const toggleRes = await toggle({
