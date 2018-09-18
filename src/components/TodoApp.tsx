@@ -4,7 +4,7 @@ import {Query} from "react-apollo";
 import styled from "react-emotion";
 import FlipMove from "react-flip-move";
 
-import {EdgeNodeType, getEdgeNodes, getPageInfo} from "../utils";
+import {EdgeNodeType, getEdgeNodes, getPageInfo, concatEdges} from "../utils";
 
 import {
     BasicTodoList,
@@ -60,35 +60,19 @@ const TodoTracks = () => (
                         cursorDones: donesPageInfo.endCursor || "",
                     },
 
-                    updateQuery: (prev, next) =>
-                        produce(prev, draftPrev => {
-                            if (!next.fetchMoreResult) {
-                                return prev;
-                            }
+                    updateQuery: (prev, next) => {
+                        if (!next.fetchMoreResult) {
+                            return prev;
+                        }
 
-                            draftPrev.todos!.edges = [
-                                ...draftPrev!.todos!.edges!,
-                                ...next.fetchMoreResult.todos!.edges!,
-                            ];
+                        const nextCache: typeof prev = {
+                            ...prev,
+                            ...concatEdges("todos", prev, next.fetchMoreResult),
+                            ...concatEdges("dones", prev, next.fetchMoreResult),
+                        };
 
-                            draftPrev.dones!.edges = [
-                                ...draftPrev!.dones!.edges!,
-                                ...next.fetchMoreResult.dones!.edges!,
-                            ];
-
-                            draftPrev.todos!.pageInfo = next.fetchMoreResult!.todos!.pageInfo;
-                            draftPrev.dones!.pageInfo = next.fetchMoreResult!.dones!.pageInfo;
-
-                            if (!draftPrev.todos!.pageInfo.endCursor) {
-                                draftPrev.todos!.pageInfo.endCursor = prev.todos!.pageInfo.endCursor;
-                            }
-
-                            if (!draftPrev.dones!.pageInfo.endCursor) {
-                                draftPrev.dones!.pageInfo.endCursor = prev.dones!.pageInfo.endCursor;
-                            }
-
-                            return draftPrev;
-                        }),
+                        return nextCache;
+                    },
                 });
             };
 

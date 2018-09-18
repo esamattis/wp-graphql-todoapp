@@ -1,3 +1,5 @@
+import produce from "immer";
+
 /**
  * Type Guard function for filtering empty values out of arrays.
  *
@@ -74,4 +76,30 @@ export function getEdgeNodes<T, K extends keyof T>(data: T, key: K) {
     const out = edges.edges.map(edge => edge && edge.node).filter(notEmpty);
 
     return out as EdgeNodeType<T, K>[];
+}
+
+export function concatEdges<T, K extends keyof T>(
+    _key: K,
+    _target: T,
+    _source: T,
+): T {
+    const key: string = _key as any;
+    const target: {[key: string]: GQL_Edges | null} = _target as any;
+    const source: {[key: string]: GQL_Edges | null} = _source as any;
+
+    const out = produce(target, (draftTarget: typeof target) => {
+        draftTarget![key]!.edges = [
+            ...draftTarget![key]!.edges!,
+            ...source![key]!.edges!,
+        ];
+
+        draftTarget![key]!.pageInfo = {
+            ...source![key]!.pageInfo,
+            endCursor:
+                source![key]!.pageInfo!.endCursor! ||
+                target![key]!.pageInfo!.endCursor!,
+        };
+    });
+
+    return out as any;
 }
