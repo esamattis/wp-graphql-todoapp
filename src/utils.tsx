@@ -23,6 +23,8 @@ export interface GQL_Edges {
      * Information to aid in pagination
      */
     edges: (GQL_Edge | null)[] | null;
+
+    pageInfo: {} | null;
 }
 
 type NotNull<T> = T extends null | undefined ? never : T;
@@ -35,6 +37,24 @@ type PickByKey<T, K extends keyof T> = NotNull<T[K]>;
 export type EdgeNodeType<T, K extends keyof T> = NodeProp<
     ArrayValue<EdgesPropValue<PickByKey<T, K>>>
 >;
+
+type PageInfoProp<T> = T extends {pageInfo: infer V} ? NotNull<V> : never;
+
+export type PageInfoType<T, K extends keyof T> = PageInfoProp<PickByKey<T, K>>;
+
+export function getPageInfo<T, K extends keyof T>(data: T, key: K) {
+    if (!data) {
+        return null;
+    }
+
+    const edges = (data as any)[key];
+
+    if (!edges) {
+        return;
+    }
+
+    return edges.pageInfo as PageInfoType<T, K>;
+}
 
 export function getEdgeNodes<T, K extends keyof T>(data: T, key: K) {
     if (!data) {

@@ -1,19 +1,18 @@
-import React from "react";
 import produce from "immer";
-import uniqBy from "lodash/uniqBy";
+import React from "react";
 import {Query} from "react-apollo";
 import styled from "react-emotion";
 import FlipMove from "react-flip-move";
 
-import {getEdgeNodes, EdgeNodeType} from "../utils";
+import {EdgeNodeType, getEdgeNodes, getPageInfo} from "../utils";
 
 import {
     BasicTodoList,
     BasicTodoListVariables,
 } from "./__generated__/BasicTodoList";
-import {View, Title, Colors, Row, RedButton} from "./core";
-import {TODO_LIST} from "./queries";
 import {AddTodoInput} from "./AddTodoInput";
+import {Colors, RedButton, Row, Title, View} from "./core";
+import {TODO_LIST} from "./queries";
 import {TodoItem} from "./TodoItem";
 
 const BlackTitle = styled(Title)({
@@ -44,16 +43,22 @@ const TodoTracks = () => (
                 .concat(dones)
                 .filter(todo => todo.status === "publish");
 
-            const cursorTodos = res.data!.todos!.pageInfo.endCursor!;
-            const cursorDones = res.data!.dones!.pageInfo.endCursor!;
+            const todosPageInfo = getPageInfo(res.data, "todos");
+            const donesPageInfo = getPageInfo(res.data, "dones");
+
+            if (!donesPageInfo || !todosPageInfo) {
+                throw new Error("pageinfo fail");
+            }
 
             const hasMore =
-                res.data!.todos!.pageInfo.hasNextPage! ||
-                res.data!.dones!.pageInfo.hasNextPage!;
+                todosPageInfo.hasNextPage || donesPageInfo.hasNextPage;
 
             const fetchMore = () => {
                 res.fetchMore({
-                    variables: {cursorTodos, cursorDones},
+                    variables: {
+                        cursorTodos: todosPageInfo.endCursor || "",
+                        cursorDones: donesPageInfo.endCursor || "",
+                    },
 
                     updateQuery: (prev, next) =>
                         produce(prev, draftPrev => {
