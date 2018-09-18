@@ -1,4 +1,4 @@
-const {task, parallel} = require("gulp");
+const {task} = require("jake");
 const {sh} = require("sh-thunk");
 
 const backendFilesGlob = ["*.php", "*.html", "lib", "bootstrap.js"];
