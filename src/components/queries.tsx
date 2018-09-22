@@ -1,5 +1,15 @@
 import gql from "graphql-tag";
 
+export const TodoFragment = gql`
+    fragment TodoParts on Todo {
+        id
+        wpId: todoId
+        title
+        completed
+        status
+    }
+`;
+
 export const DeleteTodoMutation = gql`
     mutation DeleteTodo($id: ID!) {
         deleteTodo(input: {id: $id, clientMutationId: "wat"}) {
@@ -12,15 +22,12 @@ export const DeleteTodoMutation = gql`
 `;
 
 export const DualTodoListQuery = gql`
+    ${TodoFragment}
     query DualTodoList($cursorTodos: String!, $cursorDones: String!) {
         todos(first: 3, after: $cursorTodos, where: {completed: false}) {
             edges {
                 node {
-                    id
-                    wpId: todoId
-                    title
-                    completed
-                    status
+                    ...TodoParts
                 }
             }
             pageInfo {
@@ -31,11 +38,7 @@ export const DualTodoListQuery = gql`
         dones: todos(first: 3, after: $cursorDones, where: {completed: true}) {
             edges {
                 node {
-                    id
-                    wpId: todoId
-                    title
-                    completed
-                    status
+                    ...TodoParts
                 }
             }
             pageInfo {
