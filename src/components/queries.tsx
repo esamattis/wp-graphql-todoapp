@@ -48,6 +48,56 @@ export const DualTodoListQuery = gql`
     }
 `;
 
+export const DualTodoListByTagsQuery = gql`
+    ${TodoFragment}
+    query DualTodoListByTags(
+        $todoTags: [String!]!
+        $cursorTodos: String!
+        $cursorDones: String!
+    ) {
+        todos(
+            first: 3
+            after: $cursorTodos
+            where: {
+                completed: false
+                taxQuery: {
+                    taxArray: [
+                        {
+                            terms: $todoTags
+                            taxonomy: TODOTAG
+                            operator: IN
+                            field: NAME
+                        }
+                    ]
+                }
+            }
+        ) {
+            ...TodoParts
+        }
+        dones: todos(
+            first: 3
+            after: $cursorDones
+            where: {
+                completed: true
+                taxQuery: {
+                    taxArray: [
+                        {
+                            terms: $todoTags
+                            taxonomy: TODOTAG
+                            operator: IN
+                            field: NAME
+                        }
+                    ]
+                }
+            }
+        ) {
+            ...TodoParts
+        }
+    }
+`;
+
+//  where: {taxQuery: {relation: AND, taxArray: [{terms: ["mytag"], taxonomy: TODOTAG, operator: IN, field: NAME}]}})
+
 export const SetCompletedMutation = gql`
     mutation SetTodoCompletion($id: ID!, $completed: Boolean!) {
         updateTodo(
