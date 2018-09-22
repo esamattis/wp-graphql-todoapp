@@ -7,11 +7,40 @@ import { todoTodoTagsNodes } from "./..\\..\\..\\__generated__\\globalTypes";
 // GraphQL mutation operation: SetTodoTags
 // ====================================================
 
+export interface SetTodoTags_updateTodo_todo_todoTags_edges_node {
+  /**
+   * The global ID for the todotag
+   */
+  id: string;
+  /**
+   * The human friendly name of the object.
+   */
+  name: string | null;
+}
+
+export interface SetTodoTags_updateTodo_todo_todoTags_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: SetTodoTags_updateTodo_todo_todoTags_edges_node | null;
+}
+
+export interface SetTodoTags_updateTodo_todo_todoTags {
+  /**
+   * Information to aid in pagination
+   */
+  edges: (SetTodoTags_updateTodo_todo_todoTags_edges | null)[] | null;
+}
+
 export interface SetTodoTags_updateTodo_todo {
   /**
-   * The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made.
+   * The globally unique ID for the object
    */
-  title: string | null;
+  id: string;
+  /**
+   * A collection of todoTags objects
+   */
+  todoTags: SetTodoTags_updateTodo_todo_todoTags | null;
 }
 
 export interface SetTodoTags_updateTodo {

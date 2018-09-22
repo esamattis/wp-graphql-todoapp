@@ -154,7 +154,15 @@ export const SetTodoTagsMutation = gql`
             }
         ) {
             todo {
-                title
+                id
+                todoTags(first: 99) {
+                    edges {
+                        node {
+                            id
+                            name
+                        }
+                    }
+                }
             }
         }
     }
