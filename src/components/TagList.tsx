@@ -3,6 +3,8 @@ import styled from "react-emotion";
 import {NavLink as Link} from "react-router-dom";
 
 import {View} from "./core";
+import EditTags from "./EditTags";
+import Popover from "./Popover";
 
 const Container = styled(View)({
     flexDirection: "row",
@@ -21,14 +23,25 @@ const TagLink = styled(Link)({
     },
 });
 
+const TagListWrap = styled(View)({
+    flexDirection: "row",
+});
+
 const TagList = (props: {tags: string[]}) => (
-    <Container>
-        {props.tags.map(tag => (
-            <TagLink key={tag} to={`/tag/${tag}`}>
-                #{tag}
-            </TagLink>
-        ))}
-    </Container>
+    <Popover renderPopover={() => <EditTags />}>
+        {actions => (
+            <Container>
+                <TagListWrap innerRef={actions.wrapRef}>
+                    {props.tags.map(tag => (
+                        <TagLink key={tag} to={`/tag/${tag}`}>
+                            #{tag}
+                        </TagLink>
+                    ))}
+                </TagListWrap>
+                <button onClick={actions.open}>e</button>
+            </Container>
+        )}
+    </Popover>
 );
 
 export default TagList;

@@ -11,7 +11,10 @@ const client = new ApolloClient({});
 const Root = () => (
     <ApolloProvider client={client}>
         <Router>
-            <TodoApp />
+            <div>
+                <TodoApp />
+                <div id="overlay-container" />
+            </div>
         </Router>
     </ApolloProvider>
 );
