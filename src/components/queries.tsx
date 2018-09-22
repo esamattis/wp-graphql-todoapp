@@ -145,12 +145,12 @@ export const GetAllTagsQuery = gql`
 `;
 
 export const SetTodoTagsMutation = gql`
-    mutation SetTodoTags($nodes: [todoTodoTagsNodes!]!) {
+    mutation SetTodoTags($id: ID!, $nodes: [todoTodoTagsNodes!]!) {
         updateTodo(
             input: {
-                id: "dG9kbzo4MQ=="
+                id: $id
                 clientMutationId: "sdf"
-                todoTags: {append: false, nodes: $nodes}
+                todoTags: {append: true, nodes: $nodes}
             }
         ) {
             todo {

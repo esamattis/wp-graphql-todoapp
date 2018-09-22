@@ -23,5 +23,6 @@ export interface SetTodoTags {
 }
 
 export interface SetTodoTagsVariables {
+  id: string;
   nodes: todoTodoTagsNodes[];
 }

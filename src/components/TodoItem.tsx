@@ -42,6 +42,6 @@ export const TodoItem = (props: {
             </DelebuttonPosition>
         )}
         <View style={{height: 8}} />
-        <TagList tags={props.tags} />
+        <TagList id={props.id} tags={props.tags} />
     </TodoItemContainer>
 );

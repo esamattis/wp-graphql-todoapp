@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "react-emotion";
+import {MdEdit} from "react-icons/md";
 import {NavLink as Link} from "react-router-dom";
 
-import {View} from "./core";
+import {PlainButton, View} from "./core";
 import EditTags from "./EditTags";
 import Popover from "./Popover";
 
@@ -27,8 +28,8 @@ const TagListWrap = styled(View)({
     flexDirection: "row",
 });
 
-const TagList = (props: {tags: string[]}) => (
-    <Popover renderPopover={() => <EditTags />}>
+const TagList = (props: {id: string; tags: string[]}) => (
+    <Popover renderPopover={() => <EditTags id={props.id} />}>
         {actions => (
             <Container>
                 <TagListWrap innerRef={actions.wrapRef}>
@@ -38,7 +39,9 @@ const TagList = (props: {tags: string[]}) => (
                         </TagLink>
                     ))}
                 </TagListWrap>
-                <button onClick={actions.open}>e</button>
+                <PlainButton onClick={actions.open}>
+                    <MdEdit color="white" />
+                </PlainButton>
             </Container>
         )}
     </Popover>
