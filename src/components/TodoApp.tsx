@@ -2,6 +2,8 @@ import React from "react";
 import {Query} from "react-apollo";
 import styled from "react-emotion";
 import FlipMove from "react-flip-move";
+import {Route, Switch} from "react-router";
+import {Link} from "react-router-dom";
 
 import {
     concatEdgesAtKey,
@@ -159,17 +161,33 @@ const MainContainer = styled(View)({
     alignItems: "center",
 });
 
+const TitleLink = styled(BlackTitle.withComponent(Link))({
+    textDecoration: "none",
+});
+
 class TodoApp extends React.Component {
     render() {
         return (
             <MainContainer>
-                <BlackTitle level="1">WP GraphQL Todo App</BlackTitle>
+                <TitleLink to="/">
+                    <BlackTitle level="1">WP GraphQL Todo App</BlackTitle>
+                </TitleLink>
                 <View style={{height: 50}} />
                 <AddTodoInput />
                 <View style={{height: 50}} />
-                <Row>
-                    <TodoTracks tags={[]} />
-                </Row>
+                <Switch>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => <TodoTracks tags={[]} />}
+                    />
+                    <Route
+                        path="/tag/:tag"
+                        render={route => (
+                            <TodoTracks tags={route.match.params.tag} />
+                        )}
+                    />
+                </Switch>
             </MainContainer>
         );
     }
