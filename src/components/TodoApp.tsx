@@ -125,6 +125,11 @@ const TodoList = (props: {title: string; todos: TodoNode[]}) => (
                         title={todo.title || ""}
                         completed={todo.completed || false}
                     />
+                    <ul>
+                        {getEdgeNodes(todo, "tags").map(tag => (
+                            <li>{tag.name}</li>
+                        ))}
+                    </ul>
                 </div>
             ))}
         </FlipMove>
