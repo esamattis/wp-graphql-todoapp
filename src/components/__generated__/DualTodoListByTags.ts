@@ -18,6 +18,10 @@ export interface DualTodoListByTags_todos_pageInfo {
 
 export interface DualTodoListByTags_todos_edges_node_tags_edges_node {
   /**
+   * The global ID for the todotag
+   */
+  id: string;
+  /**
    * The human friendly name of the object.
    */
   name: string | null;
@@ -94,6 +98,10 @@ export interface DualTodoListByTags_dones_pageInfo {
 }
 
 export interface DualTodoListByTags_dones_edges_node_tags_edges_node {
+  /**
+   * The global ID for the todotag
+   */
+  id: string;
   /**
    * The human friendly name of the object.
    */

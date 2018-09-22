@@ -16,6 +16,7 @@ export const TodoFragment = gql`
                 tags: todoTags(first: 99) {
                     edges {
                         node {
+                            id
                             name
                         }
                     }
