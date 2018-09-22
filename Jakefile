@@ -9,6 +9,8 @@ function wrapQuotes(globs) {
 
 task("js-server", sh`webpack-dev-server --mode development `);
 
+task("js", sh`NODE_ENV=production webpack --mode production`);
+
 task(
     "js-analyze",
     sh`ANALYZE_BUNDLE=1 NODE_ENV=production webpack --mode production`,
