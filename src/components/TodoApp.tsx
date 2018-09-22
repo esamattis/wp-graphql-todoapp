@@ -33,6 +33,16 @@ const TodoColumn = styled(View)({
     width: 350,
 });
 
+const LoadingText = styled(View)<{visible: boolean}>(
+    {
+        color: Colors.black,
+        alignItems: "center",
+    },
+    props => ({
+        visibility: props.visible ? "visible" : "hidden",
+    }),
+);
+
 function asTodoTagsVariable(todoTags: string[]) {
     if (todoTags.length > 0) {
         return {todoTags: todoTags};
@@ -52,8 +62,11 @@ const TodoTracks = (props: {tags: string[]}) => (
         }}
     >
         {res => {
-            if (res.loading) return <p>Loading...</p>;
             if (res.error || !res.data) return <p>Error :(</p>;
+
+            if (!res.data.todos || !res.data.dones) {
+                return <p>Loading...</p>;
+            }
 
             const todos = getEdgeNodes(res.data, "todos");
             const dones = getEdgeNodes(res.data, "dones");
@@ -106,6 +119,7 @@ const TodoTracks = (props: {tags: string[]}) => (
 
             return (
                 <View>
+                    <LoadingText visible={res.loading}>Loading...</LoadingText>
                     <Row>
                         <TodoList
                             title="Todo"
