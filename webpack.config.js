@@ -1,3 +1,5 @@
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+
 module.exports = {
     entry: {
         main: "./src/index.tsx",
@@ -26,4 +28,8 @@ module.exports = {
             },
         ],
     },
+
+    plugins: [process.env.ANALYZE_BUNDLE && new BundleAnalyzerPlugin()].filter(
+        Boolean,
+    ),
 };

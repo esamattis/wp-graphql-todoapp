@@ -9,6 +9,11 @@ function wrapQuotes(globs) {
 
 task("js-server", sh`webpack-dev-server --mode development `);
 
+task(
+    "js-analyze",
+    sh`ANALYZE_BUNDLE=1 NODE_ENV=production webpack --mode production`,
+);
+
 // Workaround https://github.com/apollographql/apollo-cli/issues/577
 task(
     "generate-graphql-ts",
