@@ -3,12 +3,12 @@ import {Mutation, Query} from "react-apollo";
 import styled from "react-emotion";
 import {MdAddBox} from "react-icons/md";
 
+import {GetAllTags} from "../__generated__/GetAllTags";
+import {SetTodoTags, SetTodoTagsVariables} from "../__generated__/SetTodoTags";
+import {GetAllTagsQuery, SetTodoTagsMutation} from "../queries";
 import {getEdgeNodes} from "../utils";
 
-import {GetAllTags} from "./__generated__/GetAllTags";
-import {SetTodoTags, SetTodoTagsVariables} from "./__generated__/SetTodoTags";
 import {PlainButton, Row, View} from "./core";
-import {GetAllTagsQuery, SetTodoTagsMutation} from "./queries";
 
 const AddRowContainer = styled(Row)({
     justifyContent: "space-between",

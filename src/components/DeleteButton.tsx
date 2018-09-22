@@ -3,9 +3,10 @@ import {Mutation} from "react-apollo";
 import styled from "react-emotion";
 import {FaTrash} from "react-icons/fa";
 
-import {DeleteTodo, DeleteTodoVariables} from "./__generated__/DeleteTodo";
+import {DeleteTodo, DeleteTodoVariables} from "../__generated__/DeleteTodo";
+import {DeleteTodoMutation} from "../queries";
+
 import {Colors, PlainButton, View} from "./core";
-import {DeleteTodoMutation} from "./queries";
 
 const DeleteIcon = styled(View.withComponent(FaTrash))({
     height: 20,

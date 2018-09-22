@@ -2,9 +2,10 @@ import React from "react";
 import {Mutation} from "react-apollo";
 import styled from "react-emotion";
 
-import {AddTodo, AddTodoVariables} from "./__generated__/AddTodo";
+import {AddTodo, AddTodoVariables} from "../__generated__/AddTodo";
+import {AddTodoMutation, DualTodoListQuery} from "../queries";
+
 import {Colors, PlainInput, RedButton, Row} from "./core";
-import {AddTodoMutation, DualTodoListQuery} from "./queries";
 
 const AddInput = styled(PlainInput)({
     flex: 1,

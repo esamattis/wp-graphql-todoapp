@@ -6,9 +6,10 @@ import {IoMdArrowRoundBack, IoMdArrowRoundForward} from "react-icons/io";
 import {
     SetTodoCompletion,
     SetTodoCompletionVariables,
-} from "./__generated__/SetTodoCompletion";
+} from "../__generated__/SetTodoCompletion";
+import {SetCompletedMutation} from "../queries";
+
 import {RedButton} from "./core";
-import {SetCompletedMutation} from "./queries";
 
 const DoneIcon = () => (
     <IoMdArrowRoundForward size="30" style={{alignSelf: "flex-end"}} />

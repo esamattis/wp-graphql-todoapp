@@ -6,6 +6,12 @@ import {Route, Switch} from "react-router";
 import {NavLink as Link} from "react-router-dom";
 
 import {
+    DualTodoList,
+    DualTodoListVariables,
+} from "../__generated__/DualTodoList";
+import {DualTodoListByTagsVariables} from "../__generated__/DualTodoListByTags";
+import {DualTodoListByTagsQuery, DualTodoListQuery} from "../queries";
+import {
     concatEdgesAtKey,
     EdgeNodeType,
     getEdgeNodes,
@@ -13,14 +19,8 @@ import {
     notEmpty,
 } from "../utils";
 
-import {
-    DualTodoList,
-    DualTodoListVariables,
-} from "./__generated__/DualTodoList";
-import {DualTodoListByTagsVariables} from "./__generated__/DualTodoListByTags";
 import {AddTodoInput} from "./AddTodoInput";
 import {Colors, RedButton, Row, Title, View} from "./core";
-import {DualTodoListByTagsQuery, DualTodoListQuery} from "./queries";
 import {TodoItem} from "./TodoItem";
 
 const BlackTitle = styled(Title)({
