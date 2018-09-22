@@ -4,6 +4,7 @@ import styled from "react-emotion";
 import {CompleteButton} from "./CompleteButton";
 import {Colors, Title, View} from "./core";
 import {DeleteButton} from "./DeleteButton";
+import TagList from "./TagList";
 
 const TodoItemContainer = styled(View)({
     backgroundColor: Colors.black,
@@ -24,6 +25,7 @@ export const TodoItem = (props: {
     wpId: number;
     title: string;
     completed: boolean;
+    tags: string[];
 }) => (
     <TodoItemContainer>
         <Title level="3">
@@ -39,5 +41,7 @@ export const TodoItem = (props: {
                 <DeleteButton id={props.id} />
             </DelebuttonPosition>
         )}
+        <View style={{height: 8}} />
+        <TagList tags={props.tags} />
     </TodoItemContainer>
 );

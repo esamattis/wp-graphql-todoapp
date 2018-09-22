@@ -8,6 +8,7 @@ import {
     EdgeNodeType,
     getEdgeNodes,
     getPageInfo,
+    notEmpty,
 } from "../utils";
 
 import {
@@ -124,12 +125,10 @@ const TodoList = (props: {title: string; todos: TodoNode[]}) => (
                         wpId={todo.wpId}
                         title={todo.title || ""}
                         completed={todo.completed || false}
+                        tags={getEdgeNodes(todo, "tags")
+                            .map(tag => tag.name)
+                            .filter(notEmpty)}
                     />
-                    <ul>
-                        {getEdgeNodes(todo, "tags").map(tag => (
-                            <li>{tag.name}</li>
-                        ))}
-                    </ul>
                 </div>
             ))}
         </FlipMove>
