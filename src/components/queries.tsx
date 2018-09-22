@@ -97,8 +97,6 @@ export const DualTodoListByTagsQuery = gql`
     }
 `;
 
-//  where: {taxQuery: {relation: AND, taxArray: [{terms: ["mytag"], taxonomy: TODOTAG, operator: IN, field: NAME}]}})
-
 export const SetCompletedMutation = gql`
     mutation SetTodoCompletion($id: ID!, $completed: Boolean!) {
         updateTodo(
