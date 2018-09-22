@@ -15,9 +15,13 @@ import {
     DualTodoList,
     DualTodoListVariables,
 } from "./__generated__/DualTodoList";
+import {
+    DualTodoListByTags,
+    DualTodoListByTagsVariables,
+} from "./__generated__/DualTodoListByTags";
 import {AddTodoInput} from "./AddTodoInput";
 import {Colors, RedButton, Row, Title, View} from "./core";
-import {DualTodoListQuery} from "./queries";
+import {DualTodoListByTagsQuery, DualTodoListQuery} from "./queries";
 import {TodoItem} from "./TodoItem";
 
 const BlackTitle = styled(Title)({
@@ -30,10 +34,23 @@ const TodoColumn = styled(View)({
     width: 350,
 });
 
-const TodoTracks = () => (
-    <Query<DualTodoList, DualTodoListVariables>
-        query={DualTodoListQuery}
-        variables={{cursorTodos: "", cursorDones: ""}}
+function asTodoTagsVariable(todoTags: string[]) {
+    if (todoTags.length > 0) {
+        return {todoTags: todoTags};
+    }
+    return {};
+}
+
+const TodoTracks = (props: {tags: string[]}) => (
+    <Query<DualTodoList, DualTodoListVariables | DualTodoListByTagsVariables>
+        query={
+            props.tags.length > 0 ? DualTodoListByTagsQuery : DualTodoListQuery
+        }
+        variables={{
+            cursorTodos: "",
+            cursorDones: "",
+            ...asTodoTagsVariable(props.tags),
+        }}
     >
         {res => {
             if (res.loading) return <p>Loading...</p>;
@@ -61,6 +78,7 @@ const TodoTracks = () => (
                     variables: {
                         cursorTodos: todosPageInfo.endCursor || "",
                         cursorDones: donesPageInfo.endCursor || "",
+                        ...(asTodoTagsVariable(props.tags) as any), // type fail on apollo-client
                     },
 
                     updateQuery: (cache, next) => {
@@ -150,7 +168,7 @@ class TodoApp extends React.Component {
                 <AddTodoInput />
                 <View style={{height: 50}} />
                 <Row>
-                    <TodoTracks />
+                    <TodoTracks tags={[]} />
                 </Row>
             </MainContainer>
         );
