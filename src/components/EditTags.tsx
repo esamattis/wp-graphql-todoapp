@@ -41,7 +41,11 @@ const EditTags = (props: {id: string}) => (
             return (
                 <View>
                     {tags.map(t => (
-                        <AddTagRow id={props.id} tag={t.name || ""} />
+                        <AddTagRow
+                            key={props.id}
+                            id={props.id}
+                            tag={t.name || ""}
+                        />
                     ))}
                 </View>
             );
