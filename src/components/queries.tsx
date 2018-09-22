@@ -130,6 +130,19 @@ export const AddTodoMutation = gql`
     }
 `;
 
+export const GetAllTagsQuery = gql`
+    query GetAllTags {
+        todoTags(first: 99) {
+            edges {
+                node {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`;
+
 export const SetTodoTagsMutation = gql`
     mutation SetTodoTags($nodes: [todoTodoTagsNodes!]!) {
         updateTodo(
