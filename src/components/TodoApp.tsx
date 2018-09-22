@@ -3,7 +3,7 @@ import {Query} from "react-apollo";
 import styled from "react-emotion";
 import FlipMove from "react-flip-move";
 import {Route, Switch} from "react-router";
-import {Link} from "react-router-dom";
+import {NavLink as Link} from "react-router-dom";
 
 import {
     concatEdgesAtKey,
@@ -17,10 +17,7 @@ import {
     DualTodoList,
     DualTodoListVariables,
 } from "./__generated__/DualTodoList";
-import {
-    DualTodoListByTags,
-    DualTodoListByTagsVariables,
-} from "./__generated__/DualTodoListByTags";
+import {DualTodoListByTagsVariables} from "./__generated__/DualTodoListByTags";
 import {AddTodoInput} from "./AddTodoInput";
 import {Colors, RedButton, Row, Title, View} from "./core";
 import {DualTodoListByTagsQuery, DualTodoListQuery} from "./queries";

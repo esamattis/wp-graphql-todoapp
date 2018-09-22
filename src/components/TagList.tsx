@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
-import {Link} from "react-router-dom";
+import {NavLink as Link} from "react-router-dom";
 
 import {View} from "./core";
 
