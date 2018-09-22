@@ -5,6 +5,17 @@
 // GraphQL query operation: DualTodoList
 // ====================================================
 
+export interface DualTodoList_todos_pageInfo {
+  /**
+   * When paginating forwards, the cursor to continue.
+   */
+  endCursor: string | null;
+  /**
+   * When paginating forwards, are there more items?
+   */
+  hasNextPage: boolean;
+}
+
 export interface DualTodoList_todos_edges_node_tags_edges_node {
   /**
    * The human friendly name of the object.
@@ -60,7 +71,18 @@ export interface DualTodoList_todos_edges {
   node: DualTodoList_todos_edges_node | null;
 }
 
-export interface DualTodoList_todos_pageInfo {
+export interface DualTodoList_todos {
+  /**
+   * Information to aid in pagination.
+   */
+  pageInfo: DualTodoList_todos_pageInfo;
+  /**
+   * Information to aid in pagination
+   */
+  edges: (DualTodoList_todos_edges | null)[] | null;
+}
+
+export interface DualTodoList_dones_pageInfo {
   /**
    * When paginating forwards, the cursor to continue.
    */
@@ -69,17 +91,6 @@ export interface DualTodoList_todos_pageInfo {
    * When paginating forwards, are there more items?
    */
   hasNextPage: boolean;
-}
-
-export interface DualTodoList_todos {
-  /**
-   * Information to aid in pagination
-   */
-  edges: (DualTodoList_todos_edges | null)[] | null;
-  /**
-   * Information to aid in pagination.
-   */
-  pageInfo: DualTodoList_todos_pageInfo;
 }
 
 export interface DualTodoList_dones_edges_node_tags_edges_node {
@@ -137,26 +148,15 @@ export interface DualTodoList_dones_edges {
   node: DualTodoList_dones_edges_node | null;
 }
 
-export interface DualTodoList_dones_pageInfo {
-  /**
-   * When paginating forwards, the cursor to continue.
-   */
-  endCursor: string | null;
-  /**
-   * When paginating forwards, are there more items?
-   */
-  hasNextPage: boolean;
-}
-
 export interface DualTodoList_dones {
-  /**
-   * Information to aid in pagination
-   */
-  edges: (DualTodoList_dones_edges | null)[] | null;
   /**
    * Information to aid in pagination.
    */
   pageInfo: DualTodoList_dones_pageInfo;
+  /**
+   * Information to aid in pagination
+   */
+  edges: (DualTodoList_dones_edges | null)[] | null;
 }
 
 export interface DualTodoList {

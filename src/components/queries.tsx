@@ -1,16 +1,24 @@
 import gql from "graphql-tag";
 
 export const TodoFragment = gql`
-    fragment TodoParts on Todo {
-        id
-        wpId: todoId
-        title
-        completed
-        status
-        tags: todoTags(first: 99) {
-            edges {
-                node {
-                    name
+    fragment TodoParts on RootTodosConnection {
+        pageInfo {
+            endCursor
+            hasNextPage
+        }
+        edges {
+            node {
+                id
+                wpId: todoId
+                title
+                completed
+                status
+                tags: todoTags(first: 99) {
+                    edges {
+                        node {
+                            name
+                        }
+                    }
                 }
             }
         }
@@ -32,26 +40,10 @@ export const DualTodoListQuery = gql`
     ${TodoFragment}
     query DualTodoList($cursorTodos: String!, $cursorDones: String!) {
         todos(first: 3, after: $cursorTodos, where: {completed: false}) {
-            edges {
-                node {
-                    ...TodoParts
-                }
-            }
-            pageInfo {
-                endCursor
-                hasNextPage
-            }
+            ...TodoParts
         }
         dones: todos(first: 3, after: $cursorDones, where: {completed: true}) {
-            edges {
-                node {
-                    ...TodoParts
-                }
-            }
-            pageInfo {
-                endCursor
-                hasNextPage
-            }
+            ...TodoParts
         }
     }
 `;

@@ -5,28 +5,39 @@
 // GraphQL fragment: TodoParts
 // ====================================================
 
-export interface TodoParts_tags_edges_node {
+export interface TodoParts_pageInfo {
+  /**
+   * When paginating forwards, the cursor to continue.
+   */
+  endCursor: string | null;
+  /**
+   * When paginating forwards, are there more items?
+   */
+  hasNextPage: boolean;
+}
+
+export interface TodoParts_edges_node_tags_edges_node {
   /**
    * The human friendly name of the object.
    */
   name: string | null;
 }
 
-export interface TodoParts_tags_edges {
+export interface TodoParts_edges_node_tags_edges {
   /**
    * The item at the end of the edge
    */
-  node: TodoParts_tags_edges_node | null;
+  node: TodoParts_edges_node_tags_edges_node | null;
 }
 
-export interface TodoParts_tags {
+export interface TodoParts_edges_node_tags {
   /**
    * Information to aid in pagination
    */
-  edges: (TodoParts_tags_edges | null)[] | null;
+  edges: (TodoParts_edges_node_tags_edges | null)[] | null;
 }
 
-export interface TodoParts {
+export interface TodoParts_edges_node {
   /**
    * The globally unique ID for the object
    */
@@ -50,5 +61,23 @@ export interface TodoParts {
   /**
    * A collection of todoTags objects
    */
-  tags: TodoParts_tags | null;
+  tags: TodoParts_edges_node_tags | null;
+}
+
+export interface TodoParts_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: TodoParts_edges_node | null;
+}
+
+export interface TodoParts {
+  /**
+   * Information to aid in pagination.
+   */
+  pageInfo: TodoParts_pageInfo;
+  /**
+   * Information to aid in pagination
+   */
+  edges: (TodoParts_edges | null)[] | null;
 }
