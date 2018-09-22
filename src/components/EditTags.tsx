@@ -1,5 +1,7 @@
 import React from "react";
 import {Mutation, Query} from "react-apollo";
+import styled from "react-emotion";
+import {MdAddBox} from "react-icons/md";
 
 import {getEdgeNodes} from "../utils";
 
@@ -8,10 +10,14 @@ import {SetTodoTags, SetTodoTagsVariables} from "./__generated__/SetTodoTags";
 import {PlainButton, Row, View} from "./core";
 import {GetAllTagsQuery, SetTodoTagsMutation} from "./queries";
 
+const AddRowContainer = styled(Row)({
+    justifyContent: "space-between",
+});
+
 const AddTagRow = (props: {id: string; tag: string}) => (
     <Mutation<SetTodoTags, SetTodoTagsVariables> mutation={SetTodoTagsMutation}>
         {addTags => (
-            <Row>
+            <AddRowContainer>
                 #{props.tag}
                 <PlainButton
                     onClick={() => {
@@ -23,9 +29,9 @@ const AddTagRow = (props: {id: string; tag: string}) => (
                         });
                     }}
                 >
-                    +
+                    <MdAddBox size={20} />
                 </PlainButton>
-            </Row>
+            </AddRowContainer>
         )}
     </Mutation>
 );
