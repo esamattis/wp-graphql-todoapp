@@ -29,8 +29,6 @@ const TodoColumn = styled(View)({
     width: 350,
 });
 
-type TodoNode = EdgeNodeType<DualTodoList, "todos">;
-
 const TodoTracks = () => (
     <Query<DualTodoList, DualTodoListVariables>
         query={DualTodoListQuery}
@@ -112,6 +110,8 @@ const TodoTracks = () => (
         }}
     </Query>
 );
+
+type TodoNode = EdgeNodeType<DualTodoList, "todos">;
 
 const TodoList = (props: {title: string; todos: TodoNode[]}) => (
     <TodoColumn>
