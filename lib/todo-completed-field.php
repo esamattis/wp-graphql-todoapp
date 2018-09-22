@@ -93,7 +93,7 @@ add_filter(
             return $query_args;
         }
 
-        // Convernt completed boolean to meta_query
+        // Convert completed boolean to meta_query
         $query_args['meta_query'] = [
             [
                 'key' => 'completed',
