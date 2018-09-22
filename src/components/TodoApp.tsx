@@ -3,7 +3,12 @@ import {Query} from "react-apollo";
 import styled from "react-emotion";
 import FlipMove from "react-flip-move";
 
-import {concatEdges, EdgeNodeType, getEdgeNodes, getPageInfo} from "../utils";
+import {
+    concatEdgesAtKey,
+    EdgeNodeType,
+    getEdgeNodes,
+    getPageInfo,
+} from "../utils";
 
 import {
     DualTodoList,
@@ -59,16 +64,24 @@ const TodoTracks = () => (
                         cursorDones: donesPageInfo.endCursor || "",
                     },
 
-                    updateQuery: (prev, next) => {
+                    updateQuery: (cache, next) => {
                         if (!next.fetchMoreResult) {
-                            return prev;
+                            return cache;
                         }
 
-                        const nextCache: typeof prev = {
-                            ...prev,
-                            ...concatEdges("todos", prev, next.fetchMoreResult),
-                            ...concatEdges("dones", prev, next.fetchMoreResult),
-                        };
+                        let nextCache = cache;
+
+                        nextCache = concatEdgesAtKey(
+                            "todos",
+                            nextCache,
+                            next.fetchMoreResult,
+                        );
+
+                        nextCache = concatEdgesAtKey(
+                            "dones",
+                            nextCache,
+                            next.fetchMoreResult,
+                        );
 
                         return nextCache;
                     },

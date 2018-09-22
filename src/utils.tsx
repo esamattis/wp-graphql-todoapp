@@ -20,13 +20,17 @@ export interface GQL_Edge {
     node: GQL_Node | null;
 }
 
+interface GQL_PageInfo {
+    endCursor: string | null;
+}
+
 export interface GQL_Edges {
     /**
      * Information to aid in pagination
      */
     edges: (GQL_Edge | null)[] | null;
 
-    pageInfo: {} | null;
+    pageInfo: GQL_PageInfo | null;
 }
 
 type NotNull<T> = T extends null | undefined ? never : T;
@@ -78,28 +82,27 @@ export function getEdgeNodes<T, K extends keyof T>(data: T, key: K) {
     return out as EdgeNodeType<T, K>[];
 }
 
-export function concatEdges<T, K extends keyof T>(
-    _key: K,
-    _target: T,
-    _source: T,
-): T {
-    const key: string = _key as any;
-    const target: {[key: string]: GQL_Edges | null} = _target as any;
-    const source: {[key: string]: GQL_Edges | null} = _source as any;
+function concatEdges(prev: GQL_Edges, next: GQL_Edges): any {
+    return produce(prev as any, (draftPrev: typeof prev) => {
+        draftPrev.edges = draftPrev!.edges!.concat(next.edges);
 
-    const out = produce(target, (draftTarget: typeof target) => {
-        draftTarget![key]!.edges = [
-            ...draftTarget![key]!.edges!,
-            ...source![key]!.edges!,
-        ];
+        draftPrev.pageInfo = next.pageInfo;
 
-        draftTarget![key]!.pageInfo = {
-            ...source![key]!.pageInfo,
-            endCursor:
-                source![key]!.pageInfo!.endCursor! ||
-                target![key]!.pageInfo!.endCursor!,
-        };
+        if (!draftPrev!.pageInfo!.endCursor) {
+            draftPrev!.pageInfo!.endCursor = prev!.pageInfo!.endCursor;
+        }
+
+        return draftPrev;
     });
+}
 
-    return out as any;
+export function concatEdgesAtKey<T, K extends keyof T>(
+    key: K,
+    prev: T,
+    next: T,
+): T {
+    return {
+        ...(prev as any),
+        [key]: concatEdges(prev[key] as any, next[key] as any),
+    };
 }
