@@ -5,6 +5,27 @@
 // GraphQL query operation: DualTodoList
 // ====================================================
 
+export interface DualTodoList_todos_edges_node_tags_edges_node {
+  /**
+   * The human friendly name of the object.
+   */
+  name: string | null;
+}
+
+export interface DualTodoList_todos_edges_node_tags_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: DualTodoList_todos_edges_node_tags_edges_node | null;
+}
+
+export interface DualTodoList_todos_edges_node_tags {
+  /**
+   * Information to aid in pagination
+   */
+  edges: (DualTodoList_todos_edges_node_tags_edges | null)[] | null;
+}
+
 export interface DualTodoList_todos_edges_node {
   /**
    * The globally unique ID for the object
@@ -26,6 +47,10 @@ export interface DualTodoList_todos_edges_node {
    * The current status of the object
    */
   status: string | null;
+  /**
+   * A collection of todoTags objects
+   */
+  tags: DualTodoList_todos_edges_node_tags | null;
 }
 
 export interface DualTodoList_todos_edges {
@@ -57,6 +82,27 @@ export interface DualTodoList_todos {
   pageInfo: DualTodoList_todos_pageInfo;
 }
 
+export interface DualTodoList_dones_edges_node_tags_edges_node {
+  /**
+   * The human friendly name of the object.
+   */
+  name: string | null;
+}
+
+export interface DualTodoList_dones_edges_node_tags_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: DualTodoList_dones_edges_node_tags_edges_node | null;
+}
+
+export interface DualTodoList_dones_edges_node_tags {
+  /**
+   * Information to aid in pagination
+   */
+  edges: (DualTodoList_dones_edges_node_tags_edges | null)[] | null;
+}
+
 export interface DualTodoList_dones_edges_node {
   /**
    * The globally unique ID for the object
@@ -78,6 +124,10 @@ export interface DualTodoList_dones_edges_node {
    * The current status of the object
    */
   status: string | null;
+  /**
+   * A collection of todoTags objects
+   */
+  tags: DualTodoList_dones_edges_node_tags | null;
 }
 
 export interface DualTodoList_dones_edges {

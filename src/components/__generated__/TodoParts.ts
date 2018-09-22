@@ -5,6 +5,27 @@
 // GraphQL fragment: TodoParts
 // ====================================================
 
+export interface TodoParts_tags_edges_node {
+  /**
+   * The human friendly name of the object.
+   */
+  name: string | null;
+}
+
+export interface TodoParts_tags_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: TodoParts_tags_edges_node | null;
+}
+
+export interface TodoParts_tags {
+  /**
+   * Information to aid in pagination
+   */
+  edges: (TodoParts_tags_edges | null)[] | null;
+}
+
 export interface TodoParts {
   /**
    * The globally unique ID for the object
@@ -26,4 +47,8 @@ export interface TodoParts {
    * The current status of the object
    */
   status: string | null;
+  /**
+   * A collection of todoTags objects
+   */
+  tags: TodoParts_tags | null;
 }

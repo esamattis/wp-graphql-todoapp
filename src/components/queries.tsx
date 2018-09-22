@@ -7,6 +7,13 @@ export const TodoFragment = gql`
         title
         completed
         status
+        tags: todoTags(first: 99) {
+            edges {
+                node {
+                    name
+                }
+            }
+        }
     }
 `;
 
