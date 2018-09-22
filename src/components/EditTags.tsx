@@ -14,7 +14,7 @@ const AddRowContainer = styled(Row)({
     justifyContent: "space-between",
 });
 
-const AddTagRow = (props: {id: string; tag: string}) => (
+const AddTagRow = (props: {postId: string; tag: string}) => (
     <Mutation<SetTodoTags, SetTodoTagsVariables> mutation={SetTodoTagsMutation}>
         {addTags => (
             <AddRowContainer>
@@ -23,7 +23,7 @@ const AddTagRow = (props: {id: string; tag: string}) => (
                     onClick={() => {
                         addTags({
                             variables: {
-                                id: props.id,
+                                id: props.postId,
                                 nodes: [{name: props.tag}],
                             },
                         });
@@ -36,7 +36,7 @@ const AddTagRow = (props: {id: string; tag: string}) => (
     </Mutation>
 );
 
-const EditTags = (props: {id: string}) => (
+const EditTags = (props: {postId: string}) => (
     <Query<GetAllTags> query={GetAllTagsQuery}>
         {res => {
             if (res.loading) return <p>Loading...</p>;
@@ -48,8 +48,8 @@ const EditTags = (props: {id: string}) => (
                 <View>
                     {tags.map(t => (
                         <AddTagRow
-                            key={props.id}
-                            id={props.id}
+                            key={t.id}
+                            postId={props.postId}
                             tag={t.name || ""}
                         />
                     ))}

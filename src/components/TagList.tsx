@@ -29,7 +29,7 @@ const TagListWrap = styled(View)({
 });
 
 const TagList = (props: {id: string; tags: string[]}) => (
-    <Popover renderPopover={() => <EditTags id={props.id} />}>
+    <Popover renderPopover={() => <EditTags postId={props.id} />}>
         {actions => (
             <Container>
                 <TagListWrap innerRef={actions.wrapRef}>
