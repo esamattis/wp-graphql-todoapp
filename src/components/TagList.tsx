@@ -24,7 +24,9 @@ const TagLink = styled(Link)({
 const TagList = (props: {tags: string[]}) => (
     <Container>
         {props.tags.map(tag => (
-            <TagLink to={`/tag/${tag}`}>#{tag}</TagLink>
+            <TagLink key={tag} to={`/tag/${tag}`}>
+                #{tag}
+            </TagLink>
         ))}
     </Container>
 );
