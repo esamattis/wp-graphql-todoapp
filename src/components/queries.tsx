@@ -129,3 +129,19 @@ export const AddTodoMutation = gql`
         }
     }
 `;
+
+export const SetTodoTagsMutation = gql`
+    mutation SetTodoTags($nodes: [todoTodoTagsNodes!]!) {
+        updateTodo(
+            input: {
+                id: "dG9kbzo4MQ=="
+                clientMutationId: "sdf"
+                todoTags: {append: false, nodes: $nodes}
+            }
+        ) {
+            todo {
+                title
+            }
+        }
+    }
+`;
