@@ -2,6 +2,7 @@ import React from "react";
 import {Query} from "react-apollo";
 import styled from "react-emotion";
 import FlipMove from "react-flip-move";
+import {hot} from "react-hot-loader";
 import {Route, Switch} from "react-router";
 import {NavLink as Link} from "react-router-dom";
 
@@ -176,7 +177,7 @@ const TitleLink = styled(BlackTitle.withComponent(Link))({
     textDecoration: "none",
 });
 
-class TodoApp extends React.Component {
+class Main extends React.Component {
     render() {
         return (
             <MainContainer>
@@ -204,4 +205,8 @@ class TodoApp extends React.Component {
     }
 }
 
-export default TodoApp;
+declare const module: any;
+
+const HotMain = hot(module)(Main);
+
+export default (module.hot ? HotMain : Main);
