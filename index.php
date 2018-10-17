@@ -1,7 +1,8 @@
 <?php
 
+require_once __DIR__ . '/dist/entry.php';
 
-$production_bundle = get_template_directory_uri() . '/dist/main.bundle.js';
+$main_bundle = get_template_directory_uri() . '/dist/main.js';
 
 http_response_code(200);
 ?>
@@ -26,7 +27,7 @@ http_response_code(200);
         You need to enable JavaScript to run this app.
     </noscript>
     <div id="root"></div>
-    <script>
+    <script data-production-bundle="<?php echo "$main_bundle?$main_hash"; ?>">
         <?php readfile(__DIR__ . '/bootstrap.js'); ?>
     </script>
 </body>

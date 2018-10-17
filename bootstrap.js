@@ -9,4 +9,10 @@ function loadScriptSync(src) {
     node.parentNode.insertBefore(s, node.nextSibling);
 }
 
-loadScriptSync("http://localhost:8080/dist/main.bundle.js");
+var productionBundle = document.querySelector("[data-production-bundle]").dataset.productionBundle;
+
+if (window.localStorage.devBundle) {
+    loadScriptSync(window.localStorage.devBundle);
+} else {
+    loadScriptSync(productionBundle);
+}
