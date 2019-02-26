@@ -1,6 +1,6 @@
 import React from "react";
 import {Mutation, Query} from "react-apollo";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import {MdAddBox} from "react-icons/md";
 
 import {GetAllTags} from "../__generated__/GetAllTags";

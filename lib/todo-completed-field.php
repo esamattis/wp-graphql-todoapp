@@ -1,45 +1,57 @@
 <?php
 
-/**
- * Add "completed" field for the todo
- */
-add_filter('graphql_todo_fields', function ($fields) {
-    $fields['completed'] = [
-        'type' => \WPGraphQL\Types::boolean(),
-        'description' => 'Is TODO completed',
-        'resolve' => function (\WP_Post $post) {
-            $value = get_post_meta($post->ID, 'completed', true);
 
-            if ($value === 'yes') {
-                return true;
-            }
+add_action('graphql_register_types', function () {
 
-            return false;
-        },
-    ];
-    return $fields;
+    /**
+     * Add completed field to the Todo Post Type
+     */
+    register_graphql_fields('Todo', [
+        'completed' => [
+            'type' => \WPGraphQL\Types::boolean(),
+            'description' => 'Is TODO completed',
+            'resolve' => function (\WP_Post $post) {
+                $value = get_post_meta($post->ID, 'completed', true);
+
+                if ($value === 'yes') {
+                    return true;
+                }
+
+                return false;
+            },
+        ],
+    ]);
+
+    /**
+     * Allow creating Todo with completed status field
+     */
+    register_graphql_fields('CreateTodoInput', [
+        'completed' => [
+            'type' => \WPGraphQL\Types::boolean(),
+            'description' => 'Select completed or non completed todos',
+        ],
+    ]);
+
+    /**
+     * Mutation input for the completed field
+     */
+    register_graphql_fields('UpdateTodoInput', [
+        'completed' => [
+            'type' => \WPGraphQL\Types::boolean(),
+            'description' => 'Select completed or non completed todos',
+        ],
+    ]);
+
+    /**
+     * Query args for filtering lists of TODOs by the completed field
+     */
+    register_graphql_fields('RootQueryToTodoConnectionWhereArgs', [
+        'completed' => [
+            'type' => \WPGraphQL\Types::boolean(),
+            'description' => 'Select completed or non completed todos',
+        ],
+    ]);
 });
-
-/**
- * Mutation input for the completed field
- */
-add_action(
-    'graphql_post_object_mutation_input_fields',
-    function ($fields, \WP_Post_Type $post_type_object) {
-        if ('todo' === $post_type_object->name) {
-            $fields['completed'] = [
-                'type' => \WPGraphQL\Types::boolean(),
-                'description' => __(
-                    'Mutation for TODO completed status',
-                    'todo'
-                ),
-            ];
-        }
-        return $fields;
-    },
-    10,
-    2
-);
 
 /**
  * Actual mutation implementation for the completed field
@@ -60,18 +72,6 @@ add_action(
     10,
     3
 );
-
-/**
- * Query args for filtering lists of TODOs by the completed field
- */
-add_filter('graphql_RootTodosQueryArgs_fields', function ($fields) {
-    $fields['completed'] = [
-        'type' => \WPGraphQL\Types::boolean(),
-        'description' => 'Select completed or non completed todos',
-    ];
-
-    return $fields;
-});
 
 /**
  * Actual implementation of the filtering query arg

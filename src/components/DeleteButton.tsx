@@ -1,6 +1,6 @@
 import React from "react";
 import {Mutation} from "react-apollo";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import {FaTrash} from "react-icons/fa";
 
 import {DeleteTodo, DeleteTodoVariables} from "../__generated__/DeleteTodo";

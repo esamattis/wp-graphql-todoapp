@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const TodoFragment = gql`
-    fragment TodoParts on RootTodosConnection {
+    fragment TodoParts on RootQueryToTodoConnection {
         pageInfo {
             endCursor
             hasNextPage

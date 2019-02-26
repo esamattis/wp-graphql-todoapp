@@ -1,6 +1,6 @@
 import React from "react";
 import {Mutation} from "react-apollo";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import {IoMdArrowRoundBack, IoMdArrowRoundForward} from "react-icons/io";
 
 import {

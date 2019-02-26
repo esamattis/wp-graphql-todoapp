@@ -1,6 +1,6 @@
 import React from "react";
 import {Query} from "react-apollo";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import FlipMove from "react-flip-move";
 import {hot} from "react-hot-loader";
 import {Route, Switch} from "react-router";

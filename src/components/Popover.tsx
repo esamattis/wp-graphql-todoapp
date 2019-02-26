@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 
 const Z_INDICES = {
     popover: 10,

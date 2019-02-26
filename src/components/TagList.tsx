@@ -1,5 +1,5 @@
+import styled from "@emotion/styled";
 import React from "react";
-import styled from "react-emotion";
 import {MdEdit} from "react-icons/md";
 import {NavLink as Link} from "react-router-dom";
 
@@ -32,7 +32,7 @@ const TagList = (props: {id: string; tags: string[]}) => (
     <Popover renderPopover={() => <EditTags postId={props.id} />}>
         {actions => (
             <Container>
-                <TagListWrap innerRef={actions.wrapRef}>
+                <TagListWrap ref={actions.wrapRef as any}>
                     {props.tags.map(tag => (
                         <TagLink key={tag} to={`/tag/${tag}`}>
                             #{tag}
